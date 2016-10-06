@@ -14,8 +14,9 @@ import { MovieFieldsService } from './movie-fields.service';
     providers: [MovieFieldsService]
 })
 export class MoviesComponent {
-    constructor(private _title : Title, private _fieldsService : MovieFieldsService) {  }
+    title: string = 'Top Movie Rentals';
+    constructor(private _titleService : Title, private _fieldsService : MovieFieldsService) {  }
     ngOnInit(): void {
-        //_title.setTitle("asfd");
+        this._titleService.setTitle(this.title);
     }
 }
