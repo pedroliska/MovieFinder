@@ -6,7 +6,7 @@ import { RottenTomatoesService, IMovie } from '../rotten-tomatoes.service';
 
 @Component({
     selector: 'movie',
-    templateUrl: 'app/movies/movie/movie-component.html',
+    templateUrl: 'app/movies/movie/movie.html',
     providers: [MovieFieldsService, RottenTomatoesService]
 })
 export class MovieComponent {

@@ -13,7 +13,7 @@ import { MovieComponent } from './movie/movie.component';
 
 @Component({
     selector: 'movies',
-    templateUrl: 'app/movies/movies-component.html',
+    templateUrl: 'app/movies/movies.html',
     providers: [MovieFieldsService, RottenTomatoesService, MovieComponent]
 })
 export class MoviesComponent {
