@@ -9,11 +9,12 @@ import { Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { MovieFieldsService } from './movie-fields.service';
 import { RottenTomatoesService, IMovie } from './rotten-tomatoes.service';
+import { MovieComponent } from './movie/movie.component';
 
 @Component({
     selector: 'movies',
     templateUrl: 'app/movies/movies-component.html',
-    providers: [MovieFieldsService, RottenTomatoesService]
+    providers: [MovieFieldsService, RottenTomatoesService, MovieComponent]
 })
 export class MoviesComponent {
 

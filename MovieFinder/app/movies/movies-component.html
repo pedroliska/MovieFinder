@@ -4,36 +4,10 @@
     Sorted By:
     <select data-bind="options: sortFields, optionsText: 'prettyName', value: selectedSortField"></select>
   </p>
-  <div id="movies" data-bind="foreach: movies, visible: movies().length > 0">
-    <table class="movie">
-      <tr>
-        <td>
-          <a data-bind="attr: { href: externalLink}" target="_blank">
-            <img data-bind="attr: { src: image }" />
-          </a>
-        </td>
-        <td class="info">
-          <p class="movieTitle">
-            <a data-bind="text: title, attr: { href: externalLink}" target="_blank"></a>
-          </p>
-          <table data-bind="foreach: displayFields">
-            <tr>
-              <th data-bind="text: $data[0] + ':'"></th>
-              <td data-bind="text: $data[1]"></td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-      <tr>
-        <td colspan=2>
-          <div class="genre" data-bind="visible: genres().length > 0">
-            Genre: <span data-bind="text: genresDisplay"></span>
-          </div>
-        </td>
-      </tr>
-    </table>
+  <div id="movies" *ngFor="let movieInfo of movies">
+    <movie [movieInfo]="movieInfo"></movie>
   </div>
 </div>
-<div id="loading" data-bind="visible: movies().length == 0">
+<div id="loading" *ngIf="!movies.length">
   <img src="resources/spinner.gif" alt="loading..."/>
 </div>
