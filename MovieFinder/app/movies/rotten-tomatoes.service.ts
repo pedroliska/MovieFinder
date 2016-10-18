@@ -30,13 +30,30 @@ export class RottenTomatoesService {
             .subscribe((json: string) => {console.log(json);});
     }
 
-    getTopRentals(withJsonFn: (json: string) => void): void {
+    getTopRentals(withJsonFn: (movies: IMovie[]) => void): void {
         // http://api.rottentomatoes.com/api/public/v1.0/lists/dvds/top_rentals.json?limit=50&apiKey=bwb666kgs348vaw35zu3u64v
         const url = this.apiRoot + "lists/dvds/top_rentals.json?limit=50&" + this.apiKeyAndName;
-        return this.fetchJson(url, withJsonFn);
+        this.fetchJson(url, (json: any) => {
+            let rankCount = 0;
+            let movies: IMovie[] = json.movies.map((x: any) => {
+                return {
+                    rank: ++rankCount,
+                    title: x.title,
+                    year: x.year,
+                    mpaaRating: x.mpaa_rating,
+                    imageUrl: x.posters.detailed,
+                    externalLink: x.links.alternate,
+                    detailsLink: x.links.self,
+                    //genres: <string>[],
+                    audienceRating: x.audience_score,
+                    criticsRating: x.critics_score
+            };
+            });
+            withJsonFn(movies);
+        });
     }
 
-    getMovieDetails(movieId: number, withJsonFn: (json: IMovie[]) => void): void {
+    getMovieDetails(movieId: number, withJsonFn: (movie: IMovie) => void): void {
         const url = this.apiRoot + 'movies/' + movieId + '.json?' + this.apiKeyAndName;
         return this.fetchJson(url, withJsonFn);
     }
@@ -92,25 +109,11 @@ export class RottenTomatoesService {
         const queueItem = this.requestQueue.shift();
 
         this.consoleOut('fetching url');
-        //this.consoleOut($);
-        //this.http
-        //    .get(queueItem.url)
-        //    .map((resp) => { return resp.json() })
-        //    .catch(this.handleError)
-        //    .subscribe(queueItem.withJsonFn);
         this.jsonp
-            .request(queueItem.url, {method: 'get'})
+            .request(queueItem.url + '&callback=JSONP_CALLBACK', {method: 'get'})
             .map((resp) => { return resp.json() })
             .catch(this.handleError)
             .subscribe(queueItem.withJsonFn);
-        //$.ajax({
-        //  url: queueItem.url,
-        //  dataType: 'jsonp',
-        //  success: queueItem.action,
-        //  error: function () {
-        //    throw new Error("unable to get json data");
-        //  }
-        //});
         this.processQueue();
     }
 
@@ -121,10 +124,22 @@ export class RottenTomatoesService {
 }
 
 export interface IMovie {
-    fieldName: string;
-    prettyName: string;
-    descSort: boolean;
+    rank: number;
+    title: string;
+    year: number;
+    mpaaRating: string;
+    imageUrl: string;
+    externalLink: string;
+    detailsLink: string;
+    genres: string[];
+    audienceRating: number;
+    criticsRating: number;
+    //displayFields: IDisplayField[];
 }
+
+//export interface IDisplayField {
+        
+//}
 
 interface IRequest {
     url: string;

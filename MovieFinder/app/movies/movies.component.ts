@@ -5,18 +5,34 @@
 */
 
 import { Component } from '@angular/core';
+
 import { Title } from '@angular/platform-browser';
 import { MovieFieldsService } from './movie-fields.service';
+import { RottenTomatoesService, IMovie } from './rotten-tomatoes.service';
 
 @Component({
     selector: 'movies',
-    templateUrl: 'app/movies-component.html',
-    providers: [MovieFieldsService]
+    templateUrl: 'app/movies/movies-component.html',
+    providers: [MovieFieldsService, RottenTomatoesService]
 })
 export class MoviesComponent {
-    title: string = 'Top Movie Rentals';
-    constructor(private _titleService : Title, private _fieldsService : MovieFieldsService) {  }
+
+    title = 'Top Movie Rentals';
+    movies: IMovie[] = [];
+
+    constructor(
+        private titleService: Title,
+        private fields: MovieFieldsService,
+        private rotten: RottenTomatoesService) { }
+
     ngOnInit(): void {
-        this._titleService.setTitle(this.title);
+
+        this.titleService.setTitle(this.title);
+
+        //this.rotten.test();
+        this.rotten.getTopRentals(movies => {
+            console.log(movies);
+            this.movies = movies;
+        });
     }
 }

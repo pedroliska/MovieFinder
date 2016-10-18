@@ -1,5 +1,5 @@
 ﻿<h1>{{title}}</h1>
-<div style="display: none" data-bind="visible: true">
+<div *ngIf="movies.length">
   <p style="text-align: center;">
     Sorted By:
     <select data-bind="options: sortFields, optionsText: 'prettyName', value: selectedSortField"></select>
