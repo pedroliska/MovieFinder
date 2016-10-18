@@ -2,7 +2,8 @@ import { Component, Input } from '@angular/core';
 
 import { Title } from '@angular/platform-browser';
 import { MovieFieldsService } from '../movie-fields.service';
-import { RottenTomatoesService, IMovie } from '../rotten-tomatoes.service';
+import { RottenTomatoesService } from '../rotten-tomatoes.service';
+import { IMovie }   from '../movie';
 
 @Component({
     selector: 'movie',

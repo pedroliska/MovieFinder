@@ -68,13 +68,14 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="app\movies\movies-component.html" />
-    <Content Include="app\movies\movie\movie-component.html" />
+    <Content Include="app\movies\movies.html" />
+    <Content Include="app\movies\movie\movie.html" />
     <Content Include="resources\spinner.gif" />
     <Content Include="packages.config" />
     <Content Include="package.json" />
     <Content Include="tsconfig.json" />
     <Content Include="typings.json" />
+    <TypeScriptCompile Include="app\movies\movie.ts" />
     <TypeScriptCompile Include="app\movies\movie\movie.component.ts" />
     <TypeScriptCompile Include="app\movies\rotten-tomatoes.service.ts" />
     <None Include="Web.Debug.config">

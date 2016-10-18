@@ -4,7 +4,9 @@ import { Observable }   from 'rxjs/Observable';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/toPromise';
+//import 'rxjs/add/operator/toPromise';
+
+import { IMovie }   from './movie';
 
 @Injectable()
 export class RottenTomatoesService {
@@ -123,25 +125,7 @@ export class RottenTomatoesService {
     }
 }
 
-export interface IMovie {
-    rank: number;
-    title: string;
-    year: number;
-    mpaaRating: string;
-    imageUrl: string;
-    externalLink: string;
-    detailsLink: string;
-    genres: string[];
-    audienceRating: number;
-    criticsRating: number;
-    //displayFields: IDisplayField[];
-}
-
-//export interface IDisplayField {
-        
-//}
-
 interface IRequest {
     url: string;
-    withJsonFn: (json: string) => void;
+    withJsonFn: (json: any) => void;
 }
