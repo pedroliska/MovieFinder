@@ -22,5 +22,6 @@ export class MovieComponent {
 
     ngOnInit(): void {
         this.title = this.movieInfo.title;
+        //this.
     }
 }
