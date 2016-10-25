@@ -7,7 +7,7 @@
 import { Component } from '@angular/core';
 
 import { Title } from '@angular/platform-browser';
-import { MovieFieldsService } from './movie-fields.service';
+import { MovieFieldsService, IMovieField } from './movie-fields.service';
 import { RottenTomatoesService } from './rotten-tomatoes.service';
 import { MovieComponent } from './movie/movie.component';
 import { IMovie } from './movie';
@@ -21,19 +21,20 @@ export class MoviesComponent {
 
     title = 'Top Movie Rentals';
     movies: IMovie[] = [];
+    sortFields: IMovieField[]; 
 
     constructor(
         private titleService: Title,
-        private fields: MovieFieldsService,
+        private fieldsService: MovieFieldsService,
         private rotten: RottenTomatoesService) { }
 
     ngOnInit(): void {
 
         this.titleService.setTitle(this.title);
 
-        //this.rotten.test();
+        this.sortFields = this.fieldsService.fields;
+
         this.rotten.getTopRentals(movies => {
-            console.log(movies);
             this.movies = movies;
         });
     }

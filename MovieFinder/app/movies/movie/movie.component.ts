@@ -17,7 +17,7 @@ export class MovieComponent {
 
     //constructor(
     //    private titleService: Title,
-    //    private fields: MovieFieldsService,
+    //    private fieldsService: MovieFieldsService,
     //    private rotten: RottenTomatoesService) { }
 
     ngOnInit(): void {
