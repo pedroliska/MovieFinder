@@ -13,15 +13,13 @@ import { IMovie }   from '../movie';
 export class MovieComponent {
 
     @Input() movieInfo: IMovie;
-    title: string;
 
     //constructor(
     //    private titleService: Title,
     //    private fieldsService: MovieFieldsService,
     //    private rotten: RottenTomatoesService) { }
 
-    ngOnInit(): void {
-        this.title = this.movieInfo.title;
-        //this.
-    }
+    //ngOnInit(): void {
+    //    this.title = this.movieInfo.title;
+    //}
 }

@@ -1,16 +1,16 @@
 ﻿<table class="movie">
   <tr>
     <td>
-      <a data-bind="attr: { href: externalLink}" target="_blank">
+      <a href="{{movieInfo.externalLink}}" data-bind="attr: { href: externalLink}" target="_blank">
         <img src ="{{movieInfo.imageUrl}}"/>
       </a>
     </td>
     <td class="info">
       <p class="movieTitle">
-        <a target="_blank">{{title}}</a>
+        <a target="_blank">{{movieInfo.title}}</a>
       </p>
-      <table data-bind="foreach: displayFields">
-        <tr>
+      <table data-bind="foreach: displayFields" border="1">
+        <tr *ngFor="let field of movieInfo.Fields">
           <th data-bind="text: $data[0] + ':'"></th>
           <td data-bind="text: $data[1]"></td>
         </tr>
