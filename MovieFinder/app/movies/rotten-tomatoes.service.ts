@@ -24,7 +24,8 @@ export class RottenTomatoesService {
 
     test() {
         let url =
-            "http://api.rottentomatoes.com/api/public/v1.0/lists/dvds/top_rentals.json?limit=50&apiKey=bwb666kgs348vaw35zu3u64v&callback=JSONP_CALLBACK";
+            //"http://api.rottentomatoes.com/api/public/v1.0/lists/dvds/top_rentals.json?limit=50&apiKey=bwb666kgs348vaw35zu3u64v&callback=JSONP_CALLBACK";
+            'https://www.rottentomatoes.com/api/private/v2.0/browse?limit=200&type=dvd-top-rentals&sortBy=popularity&callback=JSONP_CALLBACK'; 
         this.jsonp
             .request(url, {method: 'get'})
             .map((resp) => { return resp.json() })
