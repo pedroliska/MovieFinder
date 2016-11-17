@@ -1,0 +1,15 @@
+
+services:
+  http://api.rottentomatoes.com/api/public/v1.0.json?apikey=bwb666kgs348vaw35zu3u64v
+
+top rentals:
+  http://api.rottentomatoes.com/api/public/v1.0/lists/dvds/top_rentals.json?apikey=bwb666kgs348vaw35zu3u64v
+
+movie search:
+  http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=bwb666kgs348vaw35zu3u64v&q=gravity
+
+single movie:
+  http://api.rottentomatoes.com/api/public/v1.0/movies/771205997.json?apikey=bwb666kgs348vaw35zu3u64v
+
+documentation:
+  http://developer.rottentomatoes.com/docs

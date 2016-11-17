@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html id="htmlTop">
+<head>
+  <title data-bind="text: title"></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="resources/css/main.css"/>
+  <script data-main="resources/js/app" src="resources/js/lib/require.js"></script>
+</head>
+<body>
+<div style="display: none" data-bind="visible: true">
+  <h1 data-bind="text: title"></h1>
+  <p style="text-align: center;">
+    Sorted By:
+    <select data-bind="options: sortFields, optionsText: 'prettyName', value: selectedSortField"></select>
+  </p>
+  <div id="movies" data-bind="foreach: movies, visible: movies().length > 0">
+    <table class="movie">
+      <tr>
+        <td>
+          <a data-bind="attr: { href: externalLink}" target="_blank">
+            <img data-bind="attr: { src: image }"/>
+          </a>
+        </td>
+        <td class="info">
+          <p class="movieTitle">
+            <a data-bind="text: title, attr: { href: externalLink}" target="_blank"></a>
+          </p>
+          <table data-bind="foreach: displayFields">
+            <tr>
+              <th data-bind="text: $data[0] + ':'"></th>
+              <td data-bind="text: $data[1]"></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td colspan=2>
+          <div class="genre" data-bind="visible: genres().length > 0">
+            Genre: <span data-bind="text: genresDisplay"></span>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+<div id="loading" data-bind="visible: movies().length == 0">
+  <img src="resources/img/spinner.gif" alt="loading"/>
+</div>
+</body>
+</html>
