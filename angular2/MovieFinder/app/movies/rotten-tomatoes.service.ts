@@ -1,6 +1,6 @@
 ﻿import { Injectable }   from '@angular/core';
-import { Jsonp }        from '@angular/http';
-import { Observable }   from 'rxjs/Observable';
+import { Http }        from '@angular/http';
+import { Observable }   from 'rxjs/Observable'; 
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -20,17 +20,15 @@ export class RottenTomatoesService {
     private apiRoot = 'http://api.rottentomatoes.com/api/public/v1.0/';
     private debug = true;
 
-    constructor(private jsonp: Jsonp) {}
+    constructor(private http: Http) { }
 
     test() {
-        let url =
-            //"http://api.rottentomatoes.com/api/public/v1.0/lists/dvds/top_rentals.json?limit=50&apiKey=bwb666kgs348vaw35zu3u64v&callback=JSONP_CALLBACK";
-            'https://www.rottentomatoes.com/api/private/v2.0/browse?limit=200&type=dvd-top-rentals&sortBy=popularity&callback=JSONP_CALLBACK'; 
-        this.jsonp
-            .request(url, {method: 'get'})
+        let url = 'http://pedroliska.com/movies/top-rentals.aspx'; 
+        this.http
+            .request(url, { method: 'get' })
             .map((resp) => { return resp.json() })
             .catch(this.handleError)
-            .subscribe((json: string) => {console.log(json);});
+            .subscribe((json: string) => { console.log(json); });
     }
 
     getTopRentals(withJsonFn: (movies: IMovie[]) => void): void {
@@ -112,12 +110,16 @@ export class RottenTomatoesService {
         const queueItem = this.requestQueue.shift();
 
         this.consoleOut('fetching url');
-        this.jsonp
-            .request(queueItem.url + '&callback=JSONP_CALLBACK', {method: 'get'})
+        //this.jsonp
+        //    .request(queueItem.url + '&callback=JSONP_CALLBACK', {method: 'get'})
+        //    .map((resp) => { return resp.json() })
+        //    .catch(this.handleError)
+        //    .subscribe(queueItem.withJsonFn);
+        this.http
+            .get(queueItem.url)
             .map((resp) => { return resp.json() })
             .catch(this.handleError)
-            .subscribe(queueItem.withJsonFn);
-        this.processQueue();
+            .subscribe(queueItem.withJsonFn);       this.processQueue();
     }
 
     private handleError(error: any) {
