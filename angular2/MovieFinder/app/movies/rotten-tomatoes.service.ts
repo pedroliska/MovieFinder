@@ -10,8 +10,6 @@ import { IMovie }   from './movie';
 
 @Injectable()
 export class RottenTomatoesService {
-    private apiKey = 'bwb666kgs348vaw35zu3u64v';
-    private apiKeyAndName = `apiKey=${this.apiKey}`;
     private queueIsBeingProcessed = false;
     private requestQueue: IRequest[] = [];
     private beganCountingOn: number = null;
@@ -32,39 +30,38 @@ export class RottenTomatoesService {
     }
 
     getTopRentals(withJsonFn: (movies: IMovie[]) => void): void {
-        // http://api.rottentomatoes.com/api/public/v1.0/lists/dvds/top_rentals.json?limit=50&apiKey=bwb666kgs348vaw35zu3u64v
-        const url = this.apiRoot + "lists/dvds/top_rentals.json?limit=50&" + this.apiKeyAndName;
+        let url = 'http://pedroliska.com/movies/top-rentals.aspx'; 
         this.fetchJson(url, (json: any) => {
             let rankCount = 0;
-            let movies: IMovie[] = json.movies.map((x: any) => {
+            let movies: IMovie[] = json.results.map((x: any) => {
                 return {
                     rank: ++rankCount,
                     title: x.title,
-                    year: x.year,
-                    mpaaRating: x.mpaa_rating,
-                    imageUrl: x.posters.detailed,
-                    externalLink: x.links.alternate,
-                    detailsLink: x.links.self,
+                    //year: x.year,
+                    mpaaRating: x.mpaaRating,
+                    imageUrl: x.posters.primary,
+                    //externalLink: x.links.alternate,
+                    //detailsLink: x.links.self,
                     //genres: <string>[],
-                    audienceRating: x.audience_score,
-                    criticsRating: x.critics_score
+                    audienceRating: x.popcornScore,
+                    criticsRating: x.tomatoScore
             };
             });
             withJsonFn(movies);
         });
     }
 
-    getMovieDetails(movieId: number, withJsonFn: (movie: IMovie) => void): void {
-        const url = this.apiRoot + 'movies/' + movieId + '.json?' + this.apiKeyAndName;
-        return this.fetchJson(url, withJsonFn);
-    }
+    //getMovieDetails(movieId: number, withJsonFn: (movie: IMovie) => void): void {
+    //    const url = this.apiRoot + 'movies/' + movieId + '.json?' + this.apiKeyAndName;
+    //    return this.fetchJson(url, withJsonFn);
+    //}
 
     private fetchJson(jsonSourceUrl: string, withJsonFn: (json: any) => void): void {
-        this.consoleOut('fetchJson');
-        this.requestQueue.push({ url: jsonSourceUrl, withJsonFn: withJsonFn } as IRequest);
-        if (!this.queueIsBeingProcessed) {
-            this.processQueue();
-        }
+        this.http
+            .request(jsonSourceUrl, { method: 'get' })
+            .map((resp) => { return resp.json() })
+            .catch(this.handleError)
+            .subscribe(withJsonFn);
     }
 
     private consoleOut(...args: any[]): void {

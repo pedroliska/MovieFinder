@@ -34,9 +34,9 @@ export class MoviesComponent {
 
         this.sortFields = this.fieldsService.fields;
 
-        this.rotten.test();
-        //this.rotten.getTopRentals(movies => {
-        //    this.movies = movies;
-        //});
+        //this.rotten.test();
+        this.rotten.getTopRentals(movies => {
+            this.movies = movies;
+        });
     }
 }
