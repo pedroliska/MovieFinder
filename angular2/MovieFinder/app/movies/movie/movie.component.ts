@@ -13,13 +13,22 @@ import { IMovie }   from '../movie';
 export class MovieComponent {
 
     @Input() movieInfo: IMovie;
+    displayFields: INameValue[];
 
-    //constructor(
-    //    private titleService: Title,
-    //    private fieldsService: MovieFieldsService,
-    //    private rotten: RottenTomatoesService) { }
+    constructor(
+        private fieldsService: MovieFieldsService) { }
 
-    //ngOnInit(): void {
-    //    this.title = this.movieInfo.title;
-    //}
+    ngOnInit(): void {
+        this.displayFields = this.fieldsService.fields.map(f => {
+            var displayField = {
+                name: f.prettyName,
+                value: this.movieInfo[f.fieldName]
+            };
+            return displayField;
+        });
+    }
+}
+export interface INameValue {
+    name: string;
+    value: string;
 }

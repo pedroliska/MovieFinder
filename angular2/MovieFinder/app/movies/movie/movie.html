@@ -9,10 +9,10 @@
       <p class="movieTitle">
         <a target="_blank">{{movieInfo.title}}</a>
       </p>
-      <table data-bind="foreach: displayFields" border="1">
-        <tr *ngFor="let field of movieInfo.Fields">
-          <th data-bind="text: $data[0] + ':'"></th>
-          <td data-bind="text: $data[1]"></td>
+      <table border="1">
+        <tr *ngFor="let field of displayFields">
+          <th>{{field.name}}:</th>
+          <td>{{field.value}}</td>
         </tr>
       </table>
     </td>

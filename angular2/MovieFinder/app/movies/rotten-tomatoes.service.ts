@@ -33,20 +33,21 @@ export class RottenTomatoesService {
         let url = 'http://pedroliska.com/movies/top-rentals.aspx'; 
         this.fetchJson(url, (json: any) => {
             let rankCount = 0;
-            let movies: IMovie[] = json.results.map((x: any) => {
-                return {
-                    rank: ++rankCount,
-                    title: x.title,
-                    //year: x.year,
-                    mpaaRating: x.mpaaRating,
-                    imageUrl: x.posters.primary,
-                    //externalLink: x.links.alternate,
-                    //detailsLink: x.links.self,
-                    //genres: <string>[],
-                    audienceRating: x.popcornScore,
-                    criticsRating: x.tomatoScore
-            };
-            });
+            let movies: IMovie[] = json.results
+                .map((x: any) => {
+                    return {
+                        rank: ++rankCount,
+                        title: x.title,
+                        //year: x.year,
+                        mpaaRating: x.mpaaRating,
+                        imageUrl: x.posters.primary,
+                        //externalLink: x.links.alternate,
+                        //detailsLink: x.links.self,
+                        //genres: <string>[],
+                        audienceRating: x.popcornScore,
+                        criticsRating: x.tomatoScore
+                    };
+                });
             withJsonFn(movies);
         });
     }
