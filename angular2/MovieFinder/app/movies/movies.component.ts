@@ -11,6 +11,7 @@ import { MovieFieldsService, IMovieField } from './movie-fields.service';
 import { RottenTomatoesService } from './rotten-tomatoes.service';
 import { MovieComponent } from './movie/movie.component';
 import { IMovie } from './movie';
+import * as _ from 'lodash';
 
 @Component({
     selector: 'movies',
@@ -36,7 +37,8 @@ export class MoviesComponent {
 
         //this.rotten.test();
         this.rotten.getTopRentals(movies => {
-            this.movies = movies;
+            let sortedMovies = _.sortBy(movies, x => x.audienceRating).reverse();
+            this.movies = sortedMovies;
         });
     }
 }

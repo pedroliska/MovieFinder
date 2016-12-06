@@ -44,7 +44,7 @@ export class RottenTomatoesService {
                         //externalLink: x.links.alternate,
                         //detailsLink: x.links.self,
                         //genres: <string>[],
-                        audienceRating: x.popcornScore,
+                        audienceRating: !!x.popcornScore ? x.popcornScore : -1,
                         criticsRating: x.tomatoScore
                     };
                 });
