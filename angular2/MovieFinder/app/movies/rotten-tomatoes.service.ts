@@ -41,8 +41,7 @@ export class RottenTomatoesService {
                         //year: x.year,
                         mpaaRating: x.mpaaRating,
                         imageUrl: x.posters.primary,
-                        //externalLink: x.links.alternate,
-                        //detailsLink: x.links.self,
+                        url: 'https://www.rottentomatoes.com' + x.url,
                         //genres: <string>[],
                         audienceRating: !!x.popcornScore ? x.popcornScore : -1,
                         criticsRating: x.tomatoScore

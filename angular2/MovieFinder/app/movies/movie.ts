@@ -3,9 +3,8 @@ export interface IMovie {
     title: string;
     year: number;
     mpaaRating: string;
+    url: string;
     imageUrl: string;
-    externalLink: string;
-    detailsLink: string;
     genres: string[];
     audienceRating: number;
     criticsRating: number;
