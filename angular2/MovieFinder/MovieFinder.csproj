@@ -68,14 +68,59 @@
   <ItemGroup>
     <Content Include="app\movies\movies.html" />
     <Content Include="app\movies\movie\movie.html" />
+    <Content Include="node_modules\%40angular\common\bundles\common.umd.js" />
+    <Content Include="node_modules\%40angular\compiler\bundles\compiler.umd.js" />
+    <Content Include="node_modules\%40angular\core\bundles\core.umd.js" />
+    <Content Include="node_modules\%40angular\forms\bundles\forms.umd.js" />
+    <Content Include="node_modules\%40angular\http\bundles\http.umd.js" />
+    <Content Include="node_modules\%40angular\platform-browser-dynamic\bundles\platform-browser-dynamic.umd.js" />
+    <Content Include="node_modules\%40angular\platform-browser\bundles\platform-browser.umd.js" />
+    <Content Include="node_modules\%40angular\router\bundles\router.umd.js" />
+    <Content Include="node_modules\%40angular\upgrade\bundles\upgrade.umd.js" />
+    <Content Include="node_modules\core-js\client\shim.js" />
+    <Content Include="node_modules\core-js\client\shim.min.js" />
+    <Content Include="node_modules\lodash\lodash.js" />
+    <Content Include="node_modules\reflect-metadata\Reflect.js" />
+    <Content Include="node_modules\rxjs\add\operator\catch.js" />
+    <Content Include="node_modules\rxjs\add\operator\map.js" />
+    <Content Include="node_modules\rxjs\InnerSubscriber.js" />
+    <Content Include="node_modules\rxjs\Observable.js" />
+    <Content Include="node_modules\rxjs\Observer.js" />
+    <Content Include="node_modules\rxjs\operator\catch.js" />
+    <Content Include="node_modules\rxjs\operator\map.js" />
+    <Content Include="node_modules\rxjs\OuterSubscriber.js" />
+    <Content Include="node_modules\rxjs\Subject.js" />
+    <Content Include="node_modules\rxjs\SubjectSubscription.js" />
+    <Content Include="node_modules\rxjs\Subscriber.js" />
+    <Content Include="node_modules\rxjs\Subscription.js" />
+    <Content Include="node_modules\rxjs\symbol\iterator.js" />
+    <Content Include="node_modules\rxjs\symbol\observable.js" />
+    <Content Include="node_modules\rxjs\symbol\rxSubscriber.js" />
+    <Content Include="node_modules\rxjs\util\errorObject.js" />
+    <Content Include="node_modules\rxjs\util\isArray.js" />
+    <Content Include="node_modules\rxjs\util\isFunction.js" />
+    <Content Include="node_modules\rxjs\util\isObject.js" />
+    <Content Include="node_modules\rxjs\util\isPromise.js" />
+    <Content Include="node_modules\rxjs\util\ObjectUnsubscribedError.js" />
+    <Content Include="node_modules\rxjs\util\root.js" />
+    <Content Include="node_modules\rxjs\util\subscribeToResult.js" />
+    <Content Include="node_modules\rxjs\util\toSubscriber.js" />
+    <Content Include="node_modules\rxjs\util\tryCatch.js" />
+    <Content Include="node_modules\rxjs\util\UnsubscriptionError.js" />
+    <Content Include="node_modules\systemjs\dist\system.js" />
+    <Content Include="node_modules\systemjs\dist\system.src.js" />
+    <Content Include="node_modules\zone.js\dist\zone.js" />
     <Content Include="resources\spinner.gif" />
     <Content Include="packages.config" />
     <Content Include="package.json" />
+    <Content Include="top-rentals.aspx" />
     <Content Include="tsconfig.json" />
     <Content Include="typings.json" />
     <Content Include="app\movies\movie.ts" />
     <Content Include="app\movies\movie\movie.component.ts" />
     <Content Include="app\movies\rotten-tomatoes.service.ts" />
+    <Content Include="Web.config" />
+    <None Include="Properties\PublishProfiles\pedroliska.com.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -89,7 +134,6 @@
     <Content Include="index.html" />
     <Content Include="resources\styles.css" />
     <Content Include="systemjs.config.js" />
-    <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -103,7 +147,6 @@
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
-  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
