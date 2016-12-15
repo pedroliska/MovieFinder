@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("MovieFinder")]
+[assembly: AssemblyTitle("WebApplication2")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("MovieFinder")]
+[assembly: AssemblyProduct("WebApplication2")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("6286da6c-06ed-42b5-a2be-a82263f1dcb7")]
+[assembly: Guid("1a602e00-b7f1-4405-9290-c3ccc7a91e7e")]
 
 // Version information for an assembly consists of the following four values:
 //

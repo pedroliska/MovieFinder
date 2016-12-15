@@ -9,12 +9,12 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{6286DA6C-06ED-42B5-A2BE-A82263F1DCB7}</ProjectGuid>
+    <ProjectGuid>{1A602E00-B7F1-4405-9290-C3CCC7A91E7E}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MovieFinder</RootNamespace>
-    <AssemblyName>MovieFinder</AssemblyName>
+    <RootNamespace>WebApplication2</RootNamespace>
+    <AssemblyName>WebApplication2</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -119,8 +119,15 @@
     <Content Include="app\movies\movie.ts" />
     <Content Include="app\movies\movie\movie.component.ts" />
     <Content Include="app\movies\rotten-tomatoes.service.ts" />
-    <Content Include="Web.config" />
-    <None Include="Properties\PublishProfiles\pedroliska.com.pubxml" />
+    <Content Include=".gitignore" />
+    <Content Include="favicon.ico" />
+    <Content Include="index.html" />
+    <Content Include="resources\styles.css" />
+    <Content Include="systemjs.config.js" />
+    <Content Include="app\movies\movie-fields.service.ts" />
+    <Content Include="app\movies\movies.component.ts" />
+    <Content Include="app\app.module.ts" />
+    <Content Include="app\main.ts" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -129,23 +136,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include=".gitignore" />
-    <Content Include="favicon.ico" />
-    <Content Include="index.html" />
-    <Content Include="resources\styles.css" />
-    <Content Include="systemjs.config.js" />
+    <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="app\movies\movie-fields.service.ts" />
-    <Content Include="app\movies\movies.component.ts" />
-    <Content Include="app\app.module.ts" />
-    <Content Include="app\main.ts" />
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -158,11 +152,11 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>5003</DevelopmentServerPort>
+          <DevelopmentServerPort>4654</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:5003/</IISUrl>
+          <IISUrl>http://localhost:4654/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
