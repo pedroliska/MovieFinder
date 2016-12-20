@@ -6,10 +6,10 @@
       <option *ngFor="let x of sortFields" value="{{x.fieldName}}">{{x.prettyName}}</option>
     </select>
   </p>
-  <div id="movies" *ngFor="let movieInfo of movies">
-    <movie [movieInfo]="movieInfo"></movie>
+  <div id="movies">
+    <movie *ngFor="let movieInfo of movies" [movieInfo]="movieInfo"></movie>
   </div>
 </div>
 <div id="loading" *ngIf="!movies.length">
-  <img src="resources/spinner.gif" alt="loading..."/>
+  <img src="resources/spinner.gif" alt="loading..." />
 </div>

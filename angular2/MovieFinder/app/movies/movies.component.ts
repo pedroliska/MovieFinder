@@ -14,7 +14,7 @@ import { IMovie } from './movie';
 import * as _ from 'lodash';
 
 @Component({
-    selector: 'movies',
+    selector: 'movies', 
     templateUrl: 'app/movies/movies.html',
     providers: [MovieFieldsService, RottenTomatoesService, MovieComponent]
 })
