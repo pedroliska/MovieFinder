@@ -1,13 +1,14 @@
 {
   "name": "movie-finder",
   "version": "1.0.0",
-  "scripts": {
-    "start": "tsc && concurrently \"tsc -w\" \"lite-server\" ",
-    "postinstall": "typings install",
-    "tsc": "tsc",
-    "tsc:w": "tsc -w",
-    "typings": "typings"
-  },
+    "scripts": {
+        "start": "tsc && concurrently \"tsc -w\" \"lite-server\" ",
+        "deljs": "\"find app -type f \\( -name \"*.js\" -o -name \"*.map\" \\) -delete\"",
+        "postinstall": "typings install",
+        "tsc": "tsc",
+        "tsc:w": "tsc -w",
+        "typings": "typings"
+    },
   "keywords": [],
   "author": "",
   "license": "ISC",
