@@ -3,7 +3,8 @@
   "version": "1.0.0",
     "scripts": {
         "start": "tsc && concurrently \"tsc -w\" \"lite-server\" ",
-        "deljs": "\"find app -type f \\( -name \"*.js\" -o -name \"*.map\" \\) -delete\"",
+        "jsdelete": "\"find app -type f \\( -name \"*.js\" -o -name \"*.map\" \\) -delete\"",
+        "jsregen": "npm run jsdelete && tsc",
         "postinstall": "typings install",
         "tsc": "tsc",
         "tsc:w": "tsc -w",
