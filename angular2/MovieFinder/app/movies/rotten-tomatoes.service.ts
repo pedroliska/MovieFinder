@@ -20,15 +20,6 @@ export class RottenTomatoesService {
 
     constructor(private http: Http) { }
 
-    test() {
-        let url = 'http://pedroliska.com/movies/top-rentals.aspx'; 
-        this.http
-            .request(url, { method: 'get' })
-            .map((resp) => { return resp.json() })
-            .catch(this.handleError)
-            .subscribe((json: string) => { console.log(json); });
-    }
-
     getTopRentals(withJsonFn: (movies: IMovie[]) => void): void {
         let url = 'top-rentals.aspx'; 
         this.fetchJson(url, (json: any) => {
@@ -43,18 +34,13 @@ export class RottenTomatoesService {
                         imageUrl: x.posters.primary,
                         url: 'https://www.rottentomatoes.com' + x.url,
                         //genres: <string>[],
-                        audienceRating: !!x.popcornScore ? x.popcornScore : -1,
+                        audienceRating: x.popcornScore,
                         criticsRating: x.tomatoScore
                     };
                 });
             withJsonFn(movies);
         });
     }
-
-    //getMovieDetails(movieId: number, withJsonFn: (movie: IMovie) => void): void {
-    //    const url = this.apiRoot + 'movies/' + movieId + '.json?' + this.apiKeyAndName;
-    //    return this.fetchJson(url, withJsonFn);
-    //}
 
     private fetchJson(jsonSourceUrl: string, withJsonFn: (json: any) => void): void {
         this.http

@@ -35,9 +35,10 @@ export class MoviesComponent {
 
         this.sortFields = this.fieldsService.fields;
 
-        //this.rotten.test();
         this.rotten.getTopRentals(movies => {
-            let sortedMovies = _.sortBy(movies, x => x.audienceRating).reverse();
+            let sortedMovies = _.sortBy(
+                movies,
+                x => x.audienceRating != null ? x.audienceRating : -1).reverse();
             this.movies = sortedMovies;
         });
     }
