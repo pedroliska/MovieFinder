@@ -36,10 +36,23 @@ export class MoviesComponent {
         this.sortFields = this.fieldsService.fields;
 
         this.rotten.getTopRentals(movies => {
-            let sortedMovies = _.sortBy(
-                movies,
-                x => x.audienceRating != null ? x.audienceRating : -1).reverse();
-            this.movies = sortedMovies;
+            this.sortMovies(movies, 'audienceRating');
         });
+    }
+
+    onSortChange(selectedSort: string) {
+        this.sortMovies(this.movies, selectedSort);
+    }
+
+    sortMovies(movies: IMovie[], fieldName: string) {
+        let sortedMovies = _.sortBy(
+            movies,
+            m => m[fieldName] != null ? m[fieldName] : -1);
+
+        let descSort = this.fieldsService.getField(fieldName).descSort;
+        if (descSort) {
+            sortedMovies = sortedMovies.reverse();
+        }
+       this.movies = sortedMovies;
     }
 }

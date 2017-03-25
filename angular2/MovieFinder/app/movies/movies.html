@@ -2,7 +2,7 @@
 <div *ngIf="movies.length">
   <p style="text-align: center;">
     Sorted By:
-    <select>
+    <select (change)="onSortChange($event.target.value)">
       <option *ngFor="let x of sortFields" value="{{x.fieldName}}">{{x.prettyName}}</option>
     </select>
   </p>
