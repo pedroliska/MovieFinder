@@ -48,6 +48,7 @@ a:hover { text-decoration: underline; }
 #movies .movie img {
   height: 150px;
   float: left;
+  max-width: 130px;
 }
 
 #movies .movie .info {
