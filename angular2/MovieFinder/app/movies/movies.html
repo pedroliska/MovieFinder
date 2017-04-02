@@ -1,15 +1,22 @@
 ﻿<h1>{{title}}</h1>
-<div *ngIf="movies.length">
-  <p style="text-align: center;">
-    Sorted By:
-    <select (change)="onSortChange($event.target.value)">
-      <option *ngFor="let x of sortFields" value="{{x.fieldName}}">{{x.prettyName}}</option>
-    </select>
-  </p>
+<div *ngIf="moviesForUi.length">
+  <div id="filters">
+    <p>
+      Sorted By:
+      <select (change)="onSortChange($event.target.value)">
+        <option *ngFor="let x of sortFields" value="{{x.fieldName}}">{{x.prettyName}}</option>
+      </select>
+    </p>
+    <p>
+      <input id="emptyRatingsFilter" type="checkbox" checked="checked"
+             (change)="onEmptyRatingsFilterChange($event.target.checked)" />
+      <label for="emptyRatingsFilter">Hide movies with no audience or critics rating</label>
+    </p>
+  </div>
   <div id="movies">
-    <movie *ngFor="let movieInfo of movies" [movieInfo]="movieInfo"></movie>
+    <movie *ngFor="let movieInfo of moviesForUi" [movieInfo]="movieInfo"></movie>
   </div>
 </div>
-<div id="loading" *ngIf="!movies.length">
+<div id="loading" *ngIf="!moviesForUi.length">
   <img src="resources/spinner.gif" alt="loading..." />
 </div>

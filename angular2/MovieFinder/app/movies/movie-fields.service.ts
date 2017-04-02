@@ -12,7 +12,7 @@ export class MovieFieldsService {
             ['audienceRating', 'Audience Rating', true],
             ['criticsRating', 'Critics Rating', true],
             ['rank', 'Rental Rank', false],
-            ['year', 'Year', true],
+            //['year', 'Year', true],
             ['mpaaRating', 'MPAA Rating', true]
         ];
 

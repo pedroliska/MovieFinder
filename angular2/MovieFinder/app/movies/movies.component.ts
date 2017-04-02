@@ -21,7 +21,10 @@ import * as _ from 'lodash';
 export class MoviesComponent {
 
     title = 'Top Movie Rentals';
-    movies: IMovie[] = [];
+    sortBy: string = 'audienceRating';
+
+    moviesAll: IMovie[] = [];
+    moviesForUi: IMovie[] = [];
     sortFields: IMovieField[]; 
 
     constructor(
@@ -36,23 +39,39 @@ export class MoviesComponent {
         this.sortFields = this.fieldsService.fields;
 
         this.rotten.getTopRentals(movies => {
-            this.sortMovies(movies, 'audienceRating');
+            this.moviesAll = movies;
+            this.filterAndSortMovies(true);
         });
     }
 
     onSortChange(selectedSort: string) {
-        this.sortMovies(this.movies, selectedSort);
+        this.sortBy = selectedSort;
+        this.sortMovies(this.moviesForUi);
     }
 
-    sortMovies(movies: IMovie[], fieldName: string) {
+    onEmptyRatingsFilterChange(checked: boolean) {
+        this.filterAndSortMovies(checked);
+    }
+
+    filterAndSortMovies(filterEmptyRatings: boolean) {
+        let filteredMovies: IMovie[] = filterEmptyRatings
+            ? _.filter(
+                this.moviesAll,
+                m => m.audienceRating != null && m.criticsRating != null)
+            : this.moviesAll;
+
+        this.sortMovies(filteredMovies);
+    }
+
+    sortMovies(movies: IMovie[]) {
         let sortedMovies = _.sortBy(
             movies,
-            m => m[fieldName] != null ? m[fieldName] : -1);
+            m => m[this.sortBy] != null ? m[this.sortBy] : -1);
 
-        let descSort = this.fieldsService.getField(fieldName).descSort;
+        let descSort = this.fieldsService.getField(this.sortBy).descSort;
         if (descSort) {
             sortedMovies = sortedMovies.reverse();
         }
-       this.movies = sortedMovies;
+        this.moviesForUi = sortedMovies;
     }
 }
