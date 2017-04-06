@@ -23,6 +23,12 @@ a {
 
 a:hover { text-decoration: underline; }
 
+@media (max-width: 616px) {
+    #forkMe {
+        display: none;
+    }
+}
+
 #loading { text-align: center; }
 
 #loading img {
