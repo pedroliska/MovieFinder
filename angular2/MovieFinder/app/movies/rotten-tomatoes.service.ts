@@ -4,10 +4,14 @@ import { Observable }   from 'rxjs/Observable';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-//import 'rxjs/add/operator/toPromise';
 
 import { IMovie }   from './movie';
 
+// This service throttles the hits we do on the rottentomatoes API.
+// This used to be important with their public API, but they wanted
+// me to pay for it. Now that I'm using the private API it probably
+// doesn't matter but I'm leaving the throttling here because it 
+// works. I might remove it if it gets in the way.
 @Injectable()
 export class RottenTomatoesService {
     private queueIsBeingProcessed = false;
@@ -15,7 +19,6 @@ export class RottenTomatoesService {
     private beganCountingOn: number = null;
     private maxHitsPerSecond = 5;
     private hitCounter = 0;
-    private apiRoot = 'http://api.rottentomatoes.com/api/public/v1.0/';
     private debug = true;
 
     constructor(private http: Http) { }
@@ -52,7 +55,6 @@ export class RottenTomatoesService {
 
     private consoleOut(...args: any[]): void {
         if (this.debug) {
-            //console.log.apply(console, arguments);
             console.log.apply(console, args);
         }
     }
@@ -93,11 +95,6 @@ export class RottenTomatoesService {
         const queueItem = this.requestQueue.shift();
 
         this.consoleOut('fetching url');
-        //this.jsonp
-        //    .request(queueItem.url + '&callback=JSONP_CALLBACK', {method: 'get'})
-        //    .map((resp) => { return resp.json() })
-        //    .catch(this.handleError)
-        //    .subscribe(queueItem.withJsonFn);
         this.http
             .get(queueItem.url)
             .map((resp) => { return resp.json() })
