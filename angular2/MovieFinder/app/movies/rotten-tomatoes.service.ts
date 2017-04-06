@@ -24,7 +24,8 @@ export class RottenTomatoesService {
     constructor(private http: Http) { }
 
     getTopRentals(withJsonFn: (movies: IMovie[]) => void): void {
-        let url = 'http://pedroliska.com/movies/top-rentals.aspx'; 
+        //let url = 'http://pedroliska.com/movies/top-rentals.aspx'; 
+        let url = 'top-rentals.aspx'; 
         this.fetchJson(url, (json: any) => {
             let rankCount = 0;
             let movies: IMovie[] = json.results

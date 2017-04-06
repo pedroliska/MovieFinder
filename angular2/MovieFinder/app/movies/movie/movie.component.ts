@@ -27,6 +27,10 @@ export class MovieComponent {
             return displayField;
         });
     }
+
+    onClick(url: any) {
+        window.open(url,'_blank');
+    }
 }
 export interface INameValue {
     name: string;

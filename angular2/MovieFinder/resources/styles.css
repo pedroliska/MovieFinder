@@ -49,6 +49,7 @@ a:hover { text-decoration: underline; }
   vertical-align: top;
   text-align: left;
   box-shadow: 0 0 20px #999;
+  cursor: pointer;
 }
 
 #movies .movie td {
