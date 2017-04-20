@@ -113,10 +113,8 @@
     <Content Include="node_modules\zone.js\dist\zone.js" />
     <Content Include="resources\spinner.gif" />
     <Content Include="packages.config" />
-    <Content Include="package.json" />
     <Content Include="top-rentals.aspx" />
     <Content Include="tsconfig.json" />
-    <Content Include="typings.json" />
     <Content Include="app\movies\movie.ts" />
     <Content Include="app\movies\movie\movie.component.ts" />
     <Content Include="app\movies\rotten-tomatoes.service.ts" />
@@ -128,7 +126,7 @@
     <Content Include="app\movies\movie-fields.service.ts" />
     <Content Include="app\movies\movies.component.ts" />
     <Content Include="app\app.module.ts" />
-    <Content Include="app\main.ts" />
+    <Content Include="main.ts" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
