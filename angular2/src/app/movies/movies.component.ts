@@ -1,4 +1,4 @@
-/* 
+﻿/* 
   The MoviesComponent takes care of
   - using the movie service to get movies
   - sorting movies
@@ -9,6 +9,7 @@ import { Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { MovieFieldsService, IMovieField } from './movie-fields.service';
 import { RottenTomatoesService } from './rotten-tomatoes.service';
+import { TmdbService } from './tmdb.service';
 import { MovieComponent } from './movie/movie.component';
 import { IMovie } from './movie';
 import * as _ from 'lodash';
@@ -16,7 +17,7 @@ import * as _ from 'lodash';
 @Component({
     selector: 'movies', 
     templateUrl: 'app/movies/movies.html',
-    providers: [MovieFieldsService, RottenTomatoesService, MovieComponent]
+    providers: [MovieFieldsService, RottenTomatoesService, TmdbService, MovieComponent]
 })
 export class MoviesComponent {
 
@@ -30,7 +31,8 @@ export class MoviesComponent {
     constructor(
         private titleService: Title,
         private fieldsService: MovieFieldsService,
-        private rotten: RottenTomatoesService) { }
+        private rotten: RottenTomatoesService,
+        private tmdb: TmdbService) { }
 
     ngOnInit(): void {
 
@@ -39,8 +41,9 @@ export class MoviesComponent {
         this.sortFields = this.fieldsService.fields;
 
         this.rotten.getTopRentals(movies => {
-            this.moviesAll = movies;
+            this.moviesAll = _.take(movies, 6);
             this.filterAndSortMovies(true);
+            this.tmdb.enhanceMovies(this.moviesAll);
         });
     }
 

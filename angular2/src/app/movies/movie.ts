@@ -1,4 +1,4 @@
-export interface IMovie {
+﻿export interface IMovie {
     rank: number;
     title: string;
     year: number;
@@ -8,10 +8,4 @@ export interface IMovie {
     genres: string[];
     audienceRating: number;
     criticsRating: number;
-    //displayFields: IDisplayField[];
 }
-
-//export interface IDisplayField {
-
-//}
-

@@ -1,7 +1,7 @@
-import { Component, Input } from '@angular/core';
+﻿import { Component, Input } from '@angular/core';
 
 import { Title } from '@angular/platform-browser';
-import { MovieFieldsService } from '../movie-fields.service';
+import { MovieFieldsService, IMovieField } from '../movie-fields.service';
 import { RottenTomatoesService } from '../rotten-tomatoes.service';
 import { IMovie }   from '../movie';
 
@@ -13,26 +13,16 @@ import { IMovie }   from '../movie';
 export class MovieComponent {
 
     @Input() movieInfo: IMovie;
-    displayFields: INameValue[];
+    displayFields: IMovieField[];
 
     constructor(
         private fieldsService: MovieFieldsService) { }
 
     ngOnInit(): void {
-        this.displayFields = this.fieldsService.fields.map(f => {
-            var displayField = {
-                name: f.prettyName,
-                value: this.movieInfo[f.fieldName]
-            };
-            return displayField;
-        });
+        this.displayFields = this.fieldsService.fields;
     }
 
     onClick(url: any) {
         window.open(url,'_blank');
     }
-}
-export interface INameValue {
-    name: string;
-    value: string;
 }

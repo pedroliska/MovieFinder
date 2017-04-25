@@ -11,8 +11,8 @@
       </p>
       <table border="0">
         <tr *ngFor="let field of displayFields">
-          <th>{{field.name}}:</th>
-          <td>{{field.value}}</td>
+          <th>{{field.prettyName}}:</th>
+          <td>{{movieInfo[field.fieldName]}}</td>
         </tr>
       </table>
     </td>
