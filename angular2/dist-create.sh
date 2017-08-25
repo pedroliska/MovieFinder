@@ -13,8 +13,8 @@ rm -rf dist
 echo "transpile .ts files"
 npm run build
 
-echo "sytemjs-builder"
-node systemjs-builder.js
+echo "executing dist-systemjs-builder.js"
+node dist-systemjs-builder.js
 
 echo "copying resources folder"
 cp -r src/resources/ dist/
@@ -27,3 +27,6 @@ find dist/app/ -type f ! -name '*.html' -delete
 
 echo "copying index.html"
 cp -r src/index.html dist/
+
+echo "executing dist-jsreference-updater.js"
+node dist-jsreference-updater.js

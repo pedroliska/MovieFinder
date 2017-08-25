@@ -1,4 +1,3 @@
-//var path = require("path");
 var System = require('systemjs');
 var Builder = require('systemjs-builder');
 
@@ -6,6 +5,7 @@ var Builder = require('systemjs-builder');
 // sets the baseURL and loads the configuration file
 var builder = new Builder('', 'src/systemjs.config.js');
 builder.config({defaultJSExtensions: true});
+
 builder
     .buildStatic('src/main.js', 'dist/main.min.js', { 'minify': true, sourceMaps: true })
     .catch(function(err) {
@@ -24,13 +24,3 @@ builder
         console.log('Build shim.js error');
         console.log(err);
     });
-
-// builder
-// .bundle('local/module.js', 'outfile.js')
-// .then(function() {
-//   console.log('Build complete');
-// })
-// .catch(function(err) {
-//   console.log('Build error');
-//   console.log(err);
-// });
