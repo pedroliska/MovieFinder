@@ -10,6 +10,7 @@ import { Title } from '@angular/platform-browser';
 import { MovieFieldsService, IMovieField } from './movie-fields.service';
 import { RottenTomatoesService } from './rotten-tomatoes.service';
 import { TmdbService } from './tmdb.service';
+import { MyHttpService } from './my-http.service';
 import { MovieComponent } from './movie/movie.component';
 import { IMovie } from './movie';
 import * as _ from 'lodash';
@@ -17,7 +18,7 @@ import * as _ from 'lodash';
 @Component({
     selector: 'movies', 
     templateUrl: 'app/movies/movies.html',
-    providers: [MovieFieldsService, RottenTomatoesService, TmdbService, MovieComponent]
+    providers: [MovieFieldsService, RottenTomatoesService, TmdbService, MyHttpService, MovieComponent]
 })
 export class MoviesComponent {
 
@@ -41,7 +42,8 @@ export class MoviesComponent {
         this.sortFields = this.fieldsService.fields;
 
         this.rotten.getTopRentals(movies => {
-            this.moviesAll = _.take(movies, 6);
+            this.moviesAll = movies;
+            //this.moviesAll = _.take(movies, 6);
             this.filterAndSortMovies(true);
             this.tmdb.enhanceMovies(this.moviesAll);
         });

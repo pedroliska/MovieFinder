@@ -1,9 +1,5 @@
-﻿import { Injectable, NgZone, ChangeDetectorRef } from '@angular/core';
-import { Http } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
-
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+﻿import { Injectable } from '@angular/core';
+import { MyHttpService } from './my-http.service';
 import * as _ from 'lodash';
 
 import { IMovie } from './movie';
@@ -11,7 +7,7 @@ import { IMovie } from './movie';
 @Injectable()
 export class TmdbService {
 
-    constructor(private http: Http) { }
+    constructor(private myHttp: MyHttpService) { }
 
     enhanceMovies(movies: IMovie[]): void {
 
@@ -19,7 +15,7 @@ export class TmdbService {
         let url = 'https://api.themoviedb.org/3/search/movie?api_key=7fab4a62931d29948d1d9942f6d84e21&query=';
         movies.forEach(localMovie => {
             var movieUrl = url + encodeURIComponent(localMovie.title);
-            this.fetchJson(movieUrl, (json: any) => {
+            this.myHttp.fetchJson(movieUrl, (json: any) => {
 
                 //// refine what TMDB returned.
                 // get only exact title matches
@@ -35,21 +31,4 @@ export class TmdbService {
             });
         });
     }
-
-    private fetchJson(jsonSourceUrl: string, withJsonFn: (json: any) => void): void {
-        this.http
-            .request(jsonSourceUrl, { method: 'get' })
-            .map((resp) => { return resp.json() })
-            .catch(this.handleError)
-            .subscribe(withJsonFn);
-    }
-
-    private handleError(error: any) {
-        console.error(error);
-        return Observable.throw(error.json().error || 'Server error');
-    }
-}
-
-export interface ITmdbMovie {
-    release_date: string;
 }

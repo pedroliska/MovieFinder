@@ -137,6 +137,9 @@
   <ItemGroup>
     <Content Include="app\movies\tmdb.service.ts" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="app\movies\my-http.service.ts" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
