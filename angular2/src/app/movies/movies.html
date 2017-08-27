@@ -8,6 +8,14 @@
       </select>
     </p>
     <p>
+      MPAA Rating: 
+      <span *ngFor="let x of allMpaaRatings">
+        <input id="mpaaFilter{{x}}" name="mpaaFilter" type="checkbox" [checked]="mpaaRatingShownDict[x]"
+               (change)="onMpaaFilterChange(x, $event.target.checked)" />
+        <label for="mpaaFilter{{x}}">{{x}}</label>
+      </span>
+    </p>
+    <p>
       <input id="emptyRatingsFilter" type="checkbox" checked="checked"
              (change)="onEmptyRatingsFilterChange($event.target.checked)" />
       <label for="emptyRatingsFilter">Hide movies with no audience or critics rating</label>
