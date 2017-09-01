@@ -1,5 +1,5 @@
 ﻿<h1>{{title}}</h1>
-<div *ngIf="moviesForUi.length">
+<div *ngIf="moviesAll.length">
   <div id="filters">
     <p>
       Sorted By:
@@ -21,10 +21,13 @@
       <label for="emptyRatingsFilter">Hide movies with no audience or critics rating</label>
     </p>
   </div>
-  <div id="movies">
+  <div id="movies" *ngIf="moviesForUi.length">
     <movie *ngFor="let movieInfo of moviesForUi" [movieInfo]="movieInfo"></movie>
   </div>
+  <div id="filteredOut" *ngIf="!moviesForUi.length">
+    There are no movies that match your search criteria
+  </div>
 </div>
-<div id="loading" *ngIf="!moviesForUi.length">
+<div id="loading" *ngIf="!moviesAll.length">
   <img src="resources/spinner.gif" alt="loading..." />
 </div>
