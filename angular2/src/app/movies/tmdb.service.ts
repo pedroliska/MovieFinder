@@ -26,9 +26,14 @@ export class TmdbService {
                     .filter((m: any) => m.title === localMovie.title)
                     .head();
                 if (tmdbMovie) {
-                    localMovie.year = tmdbMovie.release_date.substring(0,4);
+                    localMovie.year = tmdbMovie.release_date.substring(0, 4);
+                    localMovie.genres.push.apply(localMovie.genres, tmdbMovie.genre_ids.map(this.genreIdToName));
                 }
             });
         });
+    }
+
+    private genreIdToName(id: number): string {
+        return id.toString();
     }
 }

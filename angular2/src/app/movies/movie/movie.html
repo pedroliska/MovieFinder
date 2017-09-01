@@ -17,11 +17,11 @@
       </table>
     </td>
   </tr>
-  <!--<tr>
+  <tr>
     <td colspan=2>
-      <div class="genre" data-bind="visible: genres().length > 0">
-        Genre: <span data-bind="text: genresDisplay"></span>
+      <div class="genre" *ngIf="movieInfo.genres.length">
+        Genre: {{movieInfo.genres.join(',')}}
       </div>
     </td>
-  </tr>-->
+  </tr>
 </table>

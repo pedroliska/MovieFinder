@@ -21,7 +21,7 @@ export class RottenTomatoesService {
                         mpaaRating: x.mpaaRating,
                         imageUrl: x.posters.primary,
                         url: 'https://www.rottentomatoes.com' + x.url,
-                        //genres: <string>[],
+                        genres: <string[]>[],
                         audienceRating: x.popcornScore === -1 ? null : x.popcornScore,
                         criticsRating: x.tomatoScore
                     };
