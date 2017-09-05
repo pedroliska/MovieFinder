@@ -48,7 +48,7 @@ export class MoviesComponent {
 
         this.rotten.getTopRentals(movies => {
             this.moviesAll = movies;
-            //this.moviesAll = _.take(movies, 6);
+            //this.moviesAll = _.take(movies, 30);
 
             this.allMpaaRatings = (<string[]>_(movies).map('mpaaRating').uniq().sort().value());
             this.allMpaaRatings.forEach(r => {
