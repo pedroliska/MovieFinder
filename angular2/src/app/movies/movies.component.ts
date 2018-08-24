@@ -11,6 +11,7 @@ import { MovieFieldsService, IMovieField, StringDict } from './movie-fields.serv
 import { RottenTomatoesService } from './rotten-tomatoes.service';
 import { TmdbService } from './tmdb.service';
 import { MyHttpService } from './my-http.service';
+import { ThrottledHttpService } from './throttled-http.service';
 import { MovieComponent } from './movie/movie.component';
 import { IMovie } from './movie';
 import * as _ from 'lodash';
@@ -18,7 +19,7 @@ import * as _ from 'lodash';
 @Component({
     selector: 'movies', 
     templateUrl: 'app/movies/movies.html',
-    providers: [MovieFieldsService, RottenTomatoesService, TmdbService, MyHttpService, MovieComponent]
+    providers: [MovieFieldsService, RottenTomatoesService, TmdbService, MyHttpService, ThrottledHttpService, MovieComponent]
 })
 export class MoviesComponent {
 

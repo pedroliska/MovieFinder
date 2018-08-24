@@ -1,5 +1,6 @@
-﻿import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { MyHttpService } from './my-http.service';
+import { ThrottledHttpService } from './throttled-http.service';
 import * as _ from 'lodash';
 
 import { IMovie } from './movie';
@@ -7,8 +8,7 @@ import { IMovie } from './movie';
 @Injectable()
 export class TmdbService {
 
-    constructor(private myHttp: MyHttpService) { }
-
+    constructor(private myHttp: ThrottledHttpService) { }
     enhanceMovies(movies: IMovie[]): void {
 
         console.log(movies.length);
