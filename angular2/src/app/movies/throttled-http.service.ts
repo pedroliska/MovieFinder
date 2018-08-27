@@ -10,8 +10,8 @@ export class ThrottledHttpService {
     private queueIsBeingProcessed = false;
     private requestQueue: IRequest[] = [];
     private beganCountingOn: number = null;
-    private maxHitsPerSecond = 40;
-    //private maxHitsPerSecond = 3;
+    private maxHitsPerInterval = 40;
+    private intervalInSeconds = 10;
     private hitCounter = 0;
     private debug = true;
 
@@ -41,9 +41,9 @@ export class ThrottledHttpService {
             this.beganCountingOn = this.getMilisecondsSinceEpoch();
         }
 
-        // timeout processQueue if we have reached the maxHitsPerSecond
-        if (this.hitCounter >= this.maxHitsPerSecond) {
-            const milisecondsToTimeout = 1000;
+        // timeout processQueue if we have reached the maxHitsPerInterval
+        if (this.hitCounter >= this.maxHitsPerInterval) {
+            const milisecondsToTimeout = this.intervalInSeconds * 1000;
             this.beganCountingOn = null;
             this.hitCounter = 0;
             this.consoleOut('reset counters');
