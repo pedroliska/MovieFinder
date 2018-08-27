@@ -11,8 +11,6 @@ export class TmdbService {
     constructor(private myHttp: ThrottledHttpService) { }
     enhanceMovies(movies: IMovie[]): void {
 
-        console.log(movies.length);
-
         // get the genres, they are needed to enhance each movie
         this.myHttp.fetchJson(this.getFullUrl('/genre/movie/list'), (json: IGenresJson) => {
             var genreDict: { [id: number]: string } = {};

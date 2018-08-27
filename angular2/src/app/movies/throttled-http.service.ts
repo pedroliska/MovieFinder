@@ -13,7 +13,7 @@ export class ThrottledHttpService {
     private maxHitsPerInterval = 40;
     private intervalInSeconds = 10;
     private hitCounter = 0;
-    private debug = true;
+    private debug = false;
 
     constructor(private myHttp: MyHttpService) { }
 
@@ -30,13 +30,13 @@ export class ThrottledHttpService {
     private processQueue(): void {
 
         this.queueIsBeingProcessed = true;
-        this.consoleOut(
+        this.debugOut(
             'processQueue start at:', this.getMilisecondsSinceEpoch(),
             'beganCountingOn:', this.beganCountingOn,
             'hitCounter:', this.hitCounter,
-            'items in queue', this.requestQueue.length);
+            'items in queue:', this.requestQueue.length);
         if (this.requestQueue.length === 0) {
-            this.consoleOut('queue is empty');
+            this.debugOut('queue is empty');
             this.queueIsBeingProcessed = false;
             return;
         }
@@ -50,24 +50,24 @@ export class ThrottledHttpService {
             const milisecondsToTimeout = this.intervalInSeconds * 1000;
             this.beganCountingOn = null;
             this.hitCounter = 0;
-            this.consoleOut('reset counters');
+            this.debugOut('reset counters');
             if (milisecondsToTimeout > 0) {
-                this.consoleOut(`timing out for ${milisecondsToTimeout}ms`);
+                console.log(`${this.requestQueue.length} items remaining in queue. Timing out for ${milisecondsToTimeout}ms.`);
                 window.setTimeout(() => { this.processQueue(); }, milisecondsToTimeout);
                 return;
             }
-            this.consoleOut('no need to timeout');
+            this.debugOut('no need to timeout');
         }
 
         this.hitCounter++;
         const queueItem = this.requestQueue.shift();
 
-        this.consoleOut('fetching: ' + queueItem.url);
+        this.debugOut('fetching: ' + queueItem.url);
         this.myHttp.fetchJson(queueItem.url, queueItem.withJsonFn);
         this.processQueue();
     }
 
-    private consoleOut(...args: any[]): void {
+    private debugOut(...args: any[]): void {
         if (this.debug) {
             console.log.apply(console, args);
         }
