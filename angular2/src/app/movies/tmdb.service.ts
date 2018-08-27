@@ -32,7 +32,7 @@ export class TmdbService {
                     // get the first result
 
                     var tmdbMovie = _(json.results)
-                        .filter((m: IMovieJson) => m.title === localMovie.title)
+                        .filter((m: IMovieJson) => m.title.toLowerCase() === localMovie.title.toLowerCase())
                         .head();
                     if (tmdbMovie) {
                         localMovie.year = Number(tmdbMovie.release_date.substring(0, 4));

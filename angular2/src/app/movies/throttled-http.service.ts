@@ -30,7 +30,11 @@ export class ThrottledHttpService {
     private processQueue(): void {
 
         this.queueIsBeingProcessed = true;
-        this.consoleOut('processQueue start', this.getMilisecondsSinceEpoch(), this.beganCountingOn, this.hitCounter);
+        this.consoleOut(
+            'processQueue start at:', this.getMilisecondsSinceEpoch(),
+            'beganCountingOn:', this.beganCountingOn,
+            'hitCounter:', this.hitCounter,
+            'items in queue', this.requestQueue.length);
         if (this.requestQueue.length === 0) {
             this.consoleOut('queue is empty');
             this.queueIsBeingProcessed = false;
