@@ -16,7 +16,7 @@
       </span>
     </p>
     <p [hidden]="!genreAllIsVisible">
-      Genre: All - <a href="#" (click)="selectGenreFilter()">select genre</a>
+      Genre: All - <a href="#" (click)="selectSciFi()">SciFi</a> - <a href="#" (click)="selectGenreFilter()">other</a>
     </p>
     <p [hidden]="!genreSelectIsVisible">
       Select Genre: <span *ngFor="let x of allGenres"><a href="#" (click)="genreSelected(x)">{{x}}</a> </span>

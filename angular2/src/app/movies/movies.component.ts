@@ -121,6 +121,14 @@ export class MoviesComponent {
         this.genreSelectIsVisible = true;
     }
 
+    selectSciFi() {
+        this.genreToShow = "Science Fiction";
+        this.filterAndSortMovies();
+
+        this.genreAllIsVisible = false;
+        this.genreClearIsVisible = true;
+    }
+
     genreSelected(genre: string) {
         this.genreToShow = genre;
         this.filterAndSortMovies();
