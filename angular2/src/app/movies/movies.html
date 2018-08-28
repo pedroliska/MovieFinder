@@ -1,4 +1,4 @@
-﻿<h1>{{title}}</h1>
+<h1>{{title}}</h1>
 <div *ngIf="moviesAll.length">
   <div id="filters">
     <p>
@@ -8,7 +8,7 @@
       </select>
     </p>
     <p>
-      MPAA Rating: 
+      MPAA Rating:
       <span *ngFor="let x of allMpaaRatings">
         <input id="mpaaFilter{{x}}" name="mpaaFilter" type="checkbox" [checked]="mpaaRatingShownDict[x]"
                (change)="onMpaaFilterChange(x, $event.target.checked)" />
@@ -21,6 +21,7 @@
       <label for="emptyRatingsFilter">Hide movies with no audience or critics rating</label>
     </p>
   </div>
+  <div><button (click)="getGenres()">getGenres</button>{{allGenres}}</div>
   <div id="movies" *ngIf="moviesForUi.length">
     <movie *ngFor="let movieInfo of moviesForUi" [movieInfo]="movieInfo"></movie>
   </div>

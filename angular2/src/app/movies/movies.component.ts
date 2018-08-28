@@ -34,7 +34,8 @@ export class MoviesComponent {
     mpaaRatingShownDict: StringDict<boolean> = {};
     allMpaaRatings: string[];
 
-
+    allGenres: string;
+    
     constructor(
         private titleService: Title,
         private fieldsService: MovieFieldsService,
@@ -101,5 +102,10 @@ export class MoviesComponent {
             sortedMovies = sortedMovies.reverse();
         }
         this.moviesForUi = sortedMovies;
+    }
+
+    getGenres() {
+        let genreArray = _.chain(this.moviesAll).map(x => x.genres).flatten().uniq().value();
+        this.allGenres = genreArray.join('|') + ' ' + genreArray.length;
     }
 }
