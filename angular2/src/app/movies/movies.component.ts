@@ -105,7 +105,7 @@ export class MoviesComponent {
     }
 
     getGenres() {
-        let genreArray = _.chain(this.moviesAll).map(x => x.genres).flatten().uniq().value();
-        this.allGenres = genreArray.join('|') + ' ' + genreArray.length;
+        let genreArray = _.chain(this.moviesAll).map(x => x.genres).flatten().uniq().sort().value();
+        this.allGenres = genreArray.join(' | ') + ' ' + genreArray.length;
     }
 }
