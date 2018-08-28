@@ -93,6 +93,12 @@ export class MoviesComponent {
         // apply MPAA ratings filter
         filteredMovies = _.filter(filteredMovies, m => this.mpaaRatingShownDict[m.mpaaRating]);
 
+        // apply Genre filter
+        if (this.genreToShow) {
+            filteredMovies = _.filter(filteredMovies, m => _.includes(m.genres, this.genreToShow));
+        }
+        
+
         this.sortMovies(filteredMovies);
     }
 
@@ -117,6 +123,7 @@ export class MoviesComponent {
 
     genreSelected(genre: string) {
         this.genreToShow = genre;
+        this.filterAndSortMovies();
 
         this.genreSelectIsVisible = false;
         this.genreClearIsVisible = true;
@@ -124,6 +131,7 @@ export class MoviesComponent {
 
     clearGenreFilter() {
         this.genreToShow = null;
+        this.filterAndSortMovies();
 
         this.genreClearIsVisible = false;
         this.genreAllIsVisible = true;
