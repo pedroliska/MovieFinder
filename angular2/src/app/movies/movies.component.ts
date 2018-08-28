@@ -34,7 +34,11 @@ export class MoviesComponent {
     mpaaRatingShownDict: StringDict<boolean> = {};
     allMpaaRatings: string[];
 
-    allGenres: string;
+    genreAllIsVisible: boolean = true;
+    genreSelectIsVisible: boolean = false;
+    genreClearIsVisible: boolean = false;
+    allGenres: string[];
+    genreToShow: string = null;
     
     constructor(
         private titleService: Title,
@@ -104,8 +108,24 @@ export class MoviesComponent {
         this.moviesForUi = sortedMovies;
     }
 
-    getGenres() {
-        let genreArray = _.chain(this.moviesAll).map(x => x.genres).flatten().uniq().sort().value();
-        this.allGenres = genreArray.join(' | ') + ' ' + genreArray.length;
+    selectGenreFilter() {
+        this.allGenres = <string[]>(_.chain(this.moviesAll).map(x => x.genres).flatten().uniq().sort().value());
+
+        this.genreAllIsVisible = false;
+        this.genreSelectIsVisible = true;
+    }
+
+    genreSelected(genre: string) {
+        this.genreToShow = genre;
+
+        this.genreSelectIsVisible = false;
+        this.genreClearIsVisible = true;
+    }
+
+    clearGenreFilter() {
+        this.genreToShow = null;
+
+        this.genreClearIsVisible = false;
+        this.genreAllIsVisible = true;
     }
 }

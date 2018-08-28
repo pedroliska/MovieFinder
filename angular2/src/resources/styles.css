@@ -48,6 +48,10 @@ a:hover { text-decoration: underline; }
     text-align: center;
 }
 
+#filters a {
+    text-decoration: underline;
+}
+
 #movies { text-align: center; }
 
 #movies .movie {

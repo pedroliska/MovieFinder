@@ -15,14 +15,14 @@
         <label for="mpaaFilter{{x}}">{{x}}</label>
       </span>
     </p>
-    <p>
-      Genre: All - <a style="text-decoration: underline" href="">select genre</a>
+    <p [hidden]="!genreAllIsVisible">
+      Genre: All - <a href="#" (click)="selectGenreFilter()">select genre</a>
     </p>
-    <p>
-      Select Genre:  <a style="text-decoration: underline" href="">Science Fiction</a>, <a style="text-decoration: underline" href="">...</a>
+    <p [hidden]="!genreSelectIsVisible">
+      Select Genre: <span *ngFor="let x of allGenres"><a href="#" (click)="genreSelected(x)">{{x}}</a> </span>
     </p>
-    <p>
-      Genre: Science Fiction - <a style="text-decoration: underline" href="">clear filter</a>
+    <p [hidden]="!genreClearIsVisible">
+      Genre: {{genreToShow}} - <a href="#" (click)="clearGenreFilter()">clear filter</a>
     </p>
     <p>
       <input id="emptyRatingsFilter" type="checkbox" checked="checked"
@@ -30,14 +30,16 @@
       <label for="emptyRatingsFilter">Hide movies with no audience or critics rating</label>
     </p>
   </div>
-  <div><button (click)="getGenres()">getGenres</button>{{allGenres}}</div>
+
   <div id="movies" *ngIf="moviesForUi.length">
     <movie *ngFor="let movieInfo of moviesForUi" [movieInfo]="movieInfo"></movie>
   </div>
+
   <div id="filteredOut" *ngIf="!moviesForUi.length">
     There are no movies that match your search criteria
   </div>
 </div>
+
 <div id="loading" *ngIf="!moviesAll.length">
   <img src="resources/spinner.gif" alt="loading..." />
 </div>
