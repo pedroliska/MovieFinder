@@ -1,4 +1,4 @@
-﻿<table class="movie" (click)="onClick(movieInfo.url)" border="0">
+<table class="movie" (click)="onClick(movieInfo.url)" border="0">
   <tr>
     <td>
       <a href="{{movieInfo.url}}" target="_blank">
@@ -19,7 +19,7 @@
   </tr>
   <tr>
     <td colspan=2>
-      <div class="genre" *ngIf="movieInfo.genres.length">
+      <div class="genre" *ngIf="movieInfo.genres">
         Genre: {{movieInfo.genres.join(', ')}}
       </div>
     </td>

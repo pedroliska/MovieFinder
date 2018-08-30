@@ -15,14 +15,17 @@
         <label for="mpaaFilter{{x}}">{{x}}</label>
       </span>
     </p>
-    <p [hidden]="!genreAllIsVisible">
-      Genre: All - <a href="#" (click)="selectSciFi()">SciFi</a> - <a href="#" (click)="selectGenreFilter()">other</a>
-    </p>
-    <p [hidden]="!genreSelectIsVisible">
-      Select Genre: <span *ngFor="let x of allGenres"><a href="#" (click)="genreSelected(x)">{{x}}</a> </span>
-    </p>
-    <p [hidden]="!genreClearIsVisible">
-      Genre: {{genreToShow}} - <a href="#" (click)="clearGenreFilter()">clear filter</a>
+    <p id="genre">
+      <img [hidden]="!fetchingGenres" src="resources/spinner.gif" alt="loading..." />
+      <span [hidden]="!genreAllIsVisible">
+        Genre: All - <a href="#" (click)="selectSciFi()">SciFi</a> - <a href="#" (click)="selectGenreFilter()">other</a>
+      </span>
+      <span [hidden]="!genreSelectIsVisible">
+        Select Genre: <span *ngFor="let x of allGenres"><a href="#" (click)="genreSelected(x)">{{x}}</a> </span>
+      </span>
+      <span [hidden]="!genreClearIsVisible">
+        Genre: {{genreToShow}} - <a href="#" (click)="clearGenreFilter()">clear filter</a>
+      </span>
     </p>
     <p>
       <input id="emptyRatingsFilter" type="checkbox" checked="checked"

@@ -34,6 +34,7 @@ export class MoviesComponent {
     mpaaRatingShownDict: StringDict<boolean> = {};
     allMpaaRatings: string[];
 
+    fetchingGenres: boolean = true;
     genreAllIsVisible: boolean = true;
     genreSelectIsVisible: boolean = false;
     genreClearIsVisible: boolean = false;
@@ -46,15 +47,14 @@ export class MoviesComponent {
         private rotten: RottenTomatoesService,
         private tmdb: TmdbService) { }
 
-    ngOnInit(): void {
+    async ngOnInit(): Promise<void> {
 
         this.titleService.setTitle(this.title);
 
         this.sortFields = this.fieldsService.fields;
 
-        this.rotten.getTopRentals(movies => {
+        this.rotten.getTopRentals(async movies => {
             this.moviesAll = movies;
-            //this.moviesAll = _.take(movies, 30);
 
             this.allMpaaRatings = (<string[]>_(movies).map('mpaaRating').uniq().sort().value());
             this.allMpaaRatings.forEach(r => {
@@ -62,7 +62,8 @@ export class MoviesComponent {
             });
 
             this.filterAndSortMovies();
-            this.tmdb.enhanceMovies(this.moviesAll);
+            await this.tmdb.enhanceMovies(this.moviesAll);
+            this.fetchingGenres = false;
         });
     }
 
