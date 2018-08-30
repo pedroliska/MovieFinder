@@ -10,7 +10,7 @@ export class TmdbService {
 
     constructor(private myHttp: ThrottledHttpService) { }
 
-    enhanceMovies(movies: IMovie[]): Promise<void> {
+    enhanceMovies(movies: IMovie[], movieUpdated: () => void): Promise<void> {
 
         return new Promise<void>((resolve, reject) => {
 
@@ -53,6 +53,8 @@ export class TmdbService {
                             localMovie.year = Number(tmdbMovie.release_date.substring(0, 4));
                             localMovie.genres.push.apply(localMovie.genres, tmdbMovie.genre_ids.map(id => genreDict[id]));
                         }
+
+                        movieUpdated();
 
                         if (localMovie === lastMovie) {
                             resolve();

@@ -62,8 +62,9 @@ export class MoviesComponent {
             });
 
             this.filterAndSortMovies();
-            await this.tmdb.enhanceMovies(this.moviesAll);
+            await this.tmdb.enhanceMovies(this.moviesAll, () => { this.filterAndSortMovies(); });
             this.fetchingGenres = false;
+            this.filterAndSortMovies();
         });
     }
 
@@ -96,7 +97,7 @@ export class MoviesComponent {
 
         // apply Genre filter
         if (this.genreToShow) {
-            filteredMovies = _.filter(filteredMovies, m => _.includes(m.genres, this.genreToShow));
+            filteredMovies = _.filter(filteredMovies, m => m.genres === null || _.includes(m.genres, this.genreToShow));
         }
         
 
