@@ -19,7 +19,7 @@
   </tr>
   <tr>
     <td colspan=2>
-      <div class="genre" *ngIf="movieInfo.genres">
+      <div class="genre" *ngIf="movieInfo.genres?.length">
         Genre: {{movieInfo.genres.join(', ')}}
       </div>
     </td>
