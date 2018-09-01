@@ -48,6 +48,12 @@ a:hover { text-decoration: underline; }
     text-align: center;
 }
 
+#filters p {
+    margin: 0;
+    padding: -;
+    line-height: 30px;
+}
+
 #filters a {
     text-decoration: underline;
 }
