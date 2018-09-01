@@ -64,7 +64,6 @@ export class MoviesComponent {
             this.filterAndSortMovies();
             await this.tmdb.enhanceMovies(this.moviesAll, () => { this.filterAndSortMovies(); });
             this.fetchingGenres = false;
-            this.filterAndSortMovies();
         });
     }
 
