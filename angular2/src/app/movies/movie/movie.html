@@ -1,11 +1,11 @@
-<table class="movie" (click)="onClick(movieInfo.url)" border="0">
+<table class="movie" border="0">
   <tr>
     <td>
-      <a href="{{movieInfo.url}}" target="_blank">
+      <a href="http://youtube.com/results?search_query={{movieInfo.title}} {{movieInfo.year}} movie trailer" target="_blank">
         <img src ="{{movieInfo.imageUrl}}"/>
       </a>
     </td>
-    <td class="info">
+    <td class="info" (click)="onClick(movieInfo.url)">
       <p class="movieTitle">
         <a href="{{movieInfo.url}}" target="_blank">{{movieInfo.title}}</a>
       </p>
@@ -17,7 +17,7 @@
       </table>
     </td>
   </tr>
-  <tr>
+  <tr (click)="onClick(movieInfo.url)">
     <td colspan=2>
       <div class="genre" *ngIf="movieInfo.genres?.length">
         Genre: {{movieInfo.genres.join(', ')}}
