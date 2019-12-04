@@ -7,6 +7,13 @@ import { TmdbService } from './tmdb.service';
 import { MyHttpService } from './my-http.service';
 import { ThrottledHttpService } from './throttled-http.service';
 import { MovieComponent } from './movie/movie.component';
+import _filter from 'lodash-es/filter';
+import _includes from 'lodash-es/filter';
+import _uniq from 'lodash-es/uniq';
+import _map from "lodash-es/map";
+import _flatten from "lodash-es/flatten";
+import _sortBy from "lodash-es/sortBy";
+import _flow from "lodash-es/flow";
 
 @Component({
   selector: 'app-root',
@@ -36,106 +43,106 @@ export class AppComponent {
   constructor(
       private titleService: Title,
       private fieldsService: MovieFieldsService,
-      // private rotten: RottenTomatoesService,
-      // private tmdb: TmdbService
+      private rotten: RottenTomatoesService,
+      private tmdb: TmdbService
   ) { }
 
   async ngOnInit(): Promise<void> {
 
       this.titleService.setTitle(this.title);
 
-  //     this.sortFields = this.fieldsService.fields;
+      this.sortFields = this.fieldsService.fields;
 
-  //     this.rotten.getTopRentals(async movies => {
-  //         this.moviesAll = movies;
+      this.rotten.getTopRentals(async movies => {
+          this.moviesAll = movies;
 
-  //         this.allMpaaRatings = (<string[]>_(movies).map('mpaaRating').uniq().sort().value());
-  //         this.allMpaaRatings.forEach(r => {
-  //             this.mpaaRatingShownDict[r] = true;
-  //         });
+          this.allMpaaRatings = (<string[]>_(movies).map('mpaaRating').uniq().sort().value());
+          this.allMpaaRatings.forEach(r => {
+              this.mpaaRatingShownDict[r] = true;
+          });
 
-  //         this.filterAndSortMovies();
-  //         await this.tmdb.enhanceMovies(this.moviesAll, () => { this.filterAndSortMovies(); });
-  //         this.fetchingGenres = false;
-  //     });
+          this.filterAndSortMovies();
+          await this.tmdb.enhanceMovies(this.moviesAll, () => { this.filterAndSortMovies(); });
+          this.fetchingGenres = false;
+      });
   }
 
-  // onSortChange(selectedSort: string) {
-  //     this.sortBy = selectedSort;
-  //     this.sortMovies(this.moviesForUi);
-  // }
+  onSortChange(selectedSort: string) {
+      this.sortBy = selectedSort;
+      this.sortMovies(this.moviesForUi);
+  }
 
-  // onMpaaFilterChange(rating: string, checked: boolean) {
-  //     this.mpaaRatingShownDict[rating] = checked;
-  //     this.filterAndSortMovies();
-  // }
+  onMpaaFilterChange(rating: string, checked: boolean) {
+      this.mpaaRatingShownDict[rating] = checked;
+      this.filterAndSortMovies();
+  }
 
-  // onEmptyRatingsFilterChange(checked: boolean) {
-  //     this.isHidingMoviesWithNoRating = checked;
-  //     this.filterAndSortMovies();
-  // }
+  onEmptyRatingsFilterChange(checked: boolean) {
+      this.isHidingMoviesWithNoRating = checked;
+      this.filterAndSortMovies();
+  }
 
-  // filterAndSortMovies() {
+  filterAndSortMovies() {
 
-  //     // apply isHidingMoviesWithNoRating filter
-  //     let filteredMovies: IMovie[] = this.isHidingMoviesWithNoRating
-  //         ? _.filter(
-  //             this.moviesAll,
-  //             m => m.audienceRating != null && m.criticsRating != null)
-  //         : this.moviesAll;
+      // apply isHidingMoviesWithNoRating filter
+      let filteredMovies: IMovie[] = this.isHidingMoviesWithNoRating
+          ? _filter(
+              this.moviesAll,
+              m => m.audienceRating != null && m.criticsRating != null)
+          : this.moviesAll;
 
-  //     // apply MPAA ratings filter
-  //     filteredMovies = _.filter(filteredMovies, m => this.mpaaRatingShownDict[m.mpaaRating]);
+      // apply MPAA ratings filter
+      filteredMovies = _filter(filteredMovies, m => this.mpaaRatingShownDict[m.mpaaRating]);
 
-  //     // apply Genre filter
-  //     if (this.genreToShow) {
-  //         filteredMovies = _.filter(filteredMovies, m => m.genres === null || _.includes(m.genres, this.genreToShow));
-  //     }
+      // apply Genre filter
+      if (this.genreToShow) {
+          //filteredMovies = _filter(filteredMovies, m => m.genres === null || _includes(m.genres, this.genreToShow));
+      }
       
 
-  //     this.sortMovies(filteredMovies);
-  // }
+      this.sortMovies(filteredMovies);
+  }
 
-  // sortMovies(movies: IMovie[]) {
-  //     let sortedMovies = _.sortBy(
-  //         movies,
-  //         m => m[this.sortBy] != null ? m[this.sortBy] : -1);
+  sortMovies(movies: IMovie[]) {
+      let sortedMovies = _sortBy(
+          movies,
+          m => m[this.sortBy] != null ? m[this.sortBy] : -1);
 
-  //     let descSort = this.fieldsService.getField(this.sortBy).descSort;
-  //     if (descSort) {
-  //         sortedMovies = sortedMovies.reverse();
-  //     }
-  //     this.moviesForUi = sortedMovies;
-  // }
+      let descSort = this.fieldsService.getField(this.sortBy).descSort;
+      if (descSort) {
+          sortedMovies = sortedMovies.reverse();
+      }
+      this.moviesForUi = sortedMovies;
+  }
 
-  // selectGenreFilter() {
-  //     this.allGenres = <string[]>(_.chain(this.moviesAll).map(x => x.genres).flatten().uniq().sort().value());
+  selectGenreFilter() {
+    this.allGenres = _uniq(_flatten(_map(this.moviesAll, x => x.genres))).sort();
 
-  //     this.genreAllIsVisible = false;
-  //     this.genreSelectIsVisible = true;
-  // }
+      this.genreAllIsVisible = false;
+      this.genreSelectIsVisible = true;
+  }
 
-  // selectSciFi() {
-  //     this.genreToShow = "Science Fiction";
-  //     this.filterAndSortMovies();
+  selectSciFi() {
+      this.genreToShow = "Science Fiction";
+      this.filterAndSortMovies();
 
-  //     this.genreAllIsVisible = false;
-  //     this.genreClearIsVisible = true;
-  // }
+      this.genreAllIsVisible = false;
+      this.genreClearIsVisible = true;
+  }
 
-  // genreSelected(genre: string) {
-  //     this.genreToShow = genre;
-  //     this.filterAndSortMovies();
+  genreSelected(genre: string) {
+      this.genreToShow = genre;
+      this.filterAndSortMovies();
 
-  //     this.genreSelectIsVisible = false;
-  //     this.genreClearIsVisible = true;
-  // }
+      this.genreSelectIsVisible = false;
+      this.genreClearIsVisible = true;
+  }
 
-  // clearGenreFilter() {
-  //     this.genreToShow = null;
-  //     this.filterAndSortMovies();
+  clearGenreFilter() {
+      this.genreToShow = null;
+      this.filterAndSortMovies();
 
-  //     this.genreClearIsVisible = false;
-  //     this.genreAllIsVisible = true;
-  // }
+      this.genreClearIsVisible = false;
+      this.genreAllIsVisible = true;
+  }
 }
