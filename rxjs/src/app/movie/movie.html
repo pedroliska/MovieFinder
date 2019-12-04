@@ -1,0 +1,27 @@
+<table class="movie" border="0">
+  <tr>
+    <td>
+      <a href="http://youtube.com/results?search_query={{movieInfo.title}} {{movieInfo.year}} movie trailer" target="_blank">
+        <img src ="{{movieInfo.imageUrl}}"/>
+      </a>
+    </td>
+    <td class="info" (click)="onClick(movieInfo.url)">
+      <p class="movieTitle">
+        <a href="#">{{movieInfo.title}}</a>
+      </p>
+      <table border="0">
+        <tr *ngFor="let field of displayFields">
+          <th>{{field.prettyName}}:</th>
+          <td>{{movieInfo[field.fieldName]}}</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr (click)="onClick(movieInfo.url)">
+    <td colspan=2>
+      <div class="genre" *ngIf="movieInfo.genres?.length">
+        Genre: {{movieInfo.genres.join(', ')}}
+      </div>
+    </td>
+  </tr>
+</table>
