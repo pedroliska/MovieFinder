@@ -21,7 +21,7 @@
         Genre: All - <a href="#" (click)="selectSciFi()">SciFi</a> - <a href="#" (click)="selectGenreFilter()">other</a>
       </span>
       <span [hidden]="!genreSelectIsVisible">
-        Select Genre: <span *ngFor="let x of allGenres"><a href="#" (click)="genreSelected(x)">{{x}}</a> </span>
+        Select Genre: <span *ngFor="let x of allGenres"><a href="#" (click)="genreSelected(x)">{{x}}</a>&nbsp; </span>
       </span>
       <span [hidden]="!genreClearIsVisible">
         Genre: {{genreToShow}} - <a href="#" (click)="clearGenreFilter()">clear filter</a>
