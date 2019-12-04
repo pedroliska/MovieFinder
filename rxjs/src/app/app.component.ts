@@ -56,7 +56,7 @@ export class AppComponent {
       this.rotten.getTopRentals(async movies => {
           this.moviesAll = movies;
 
-          this.allMpaaRatings = (<string[]>_(movies).map('mpaaRating').uniq().sort().value());
+          this.allMpaaRatings = _uniq(_map(movies, 'mpaaRating')).sort();
           this.allMpaaRatings.forEach(r => {
               this.mpaaRatingShownDict[r] = true;
           });
