@@ -8,8 +8,8 @@ export class RottenTomatoesService {
     constructor(private myHttp: MyHttpService) { }
 
     getTopRentals(withJsonFn: (movies: IMovie[]) => void): void {
-        let url = 'http://pedroliska.com/movies/top-rentals.aspx'; 
-        //let url = 'top-rentals.aspx'; 
+        //let url = 'http://pedroliska.com/movies/top-rentals.aspx'; 
+        let url = 'https://www.rottentomatoes.com/api/private/v2.0/browse?limit=200&type=top-dvd-streaming&sortBy=popularity'; 
         this.myHttp.fetchJson(url, (json: any) => {
             let rankCount = 0;
             let movies: IMovie[] = json.results
