@@ -52,6 +52,7 @@ export class TmdbService {
                         if (tmdbMovie) {
                             localMovie.year = Number(tmdbMovie.release_date.substring(0, 4));
                             localMovie.genres.push.apply(localMovie.genres, tmdbMovie.genre_ids.map(id => genreDict[id]));
+                            localMovie.audienceRating = tmdbMovie.vote_average * 10;
                         }
 
                         movieUpdated();
@@ -78,6 +79,7 @@ interface IMovieJson {
     title: string;
     release_date: string;
     genre_ids: number[];
+    vote_average: number;
 }
 
 interface IGenresJson {
