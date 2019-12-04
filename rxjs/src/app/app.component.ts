@@ -8,7 +8,7 @@ import { MyHttpService } from './my-http.service';
 import { ThrottledHttpService } from './throttled-http.service';
 import { MovieComponent } from './movie/movie.component';
 import _filter from 'lodash-es/filter';
-import _includes from 'lodash-es/filter';
+import _includes from 'lodash-es/includes';
 import _uniq from 'lodash-es/uniq';
 import _map from "lodash-es/map";
 import _flatten from "lodash-es/flatten";
@@ -96,8 +96,8 @@ export class AppComponent {
 
       // apply Genre filter
       if (this.genreToShow) {
-          //filteredMovies = _filter(filteredMovies, m => m.genres === null || _includes(m.genres, this.genreToShow));
-      }
+        filteredMovies = _filter(filteredMovies, m => m.genres === null || _includes(m.genres, this.genreToShow));
+    }
       
 
       this.sortMovies(filteredMovies);
