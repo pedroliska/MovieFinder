@@ -55,18 +55,25 @@ function DeleteFilesInFtpUrl($ftpUrl, $credentials)
     }
 }
 
-function SendFilesToFtpUrl($ftpUrl, $credentials) {
+function SendFolderToFtpUrl($folderTosend, $ftpUrl, $credentials) {
 
-    $distFolder = Join-Path -Path $PSScriptRoot -ChildPath "dist"
-    Write-Host "Sending files in $distFolder to $ftpUrl"
+    Write-Host "Sending $folderTosend to $ftpUrl"
 
     $webclient = New-Object System.Net.WebClient 
     $webclient.Credentials = $credentials
 
-    foreach($item in (Get-ChildItem $distFolder "*.*")) { 
-        Write-Host "Uploading $item..." 
-        $uri = New-Object System.Uri($ftpUrl + "/" + $item.Name) 
-        $webclient.UploadFile($uri, $item.FullName)    
+    foreach($item in (Get-ChildItem $folderTosend "*.*")) { 
+        
+        if ($item.PSIsContainer) {
+            Write-Host "Found subfolder: $item"
+            $subFolder = Join-Path -Path $folderTosend -ChildPath $item
+            $subFtpUrl = $ftpUrl + "/$item"
+            SendFolderToFtpUrl $subFolder  $subFtpUrl  $credentials
+        } else {
+            Write-Host "Uploading $item..." 
+            $uri = New-Object System.Uri($ftpUrl + "/" + $item.Name) 
+            $webclient.UploadFile($uri, $item.FullName)    
+        }
     } 
 }
 

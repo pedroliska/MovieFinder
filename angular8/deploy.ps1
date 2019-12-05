@@ -21,6 +21,7 @@ $credentials = New-Object System.Net.NetworkCredential($ftpUsername, $ftpPasswor
 
 DeleteFilesInFtpUrl $ftpServer $credentials
 
-SendFilesToFtpUrl $ftpServer $credentials
+$distFolder = Join-Path -Path $PSScriptRoot -ChildPath "dist"
+SendFolderToFtpUrl $distFolder $ftpServer $credentials
 
 Beep
