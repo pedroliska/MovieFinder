@@ -55,6 +55,13 @@ function DeleteFilesInFtpUrl($ftpUrl, $credentials)
     }
 }
 
+function CreateFtpFolder ($subFtpUrl, $credentials) {
+    $ftprequest = [System.Net.FtpWebRequest]::create($subFtpUrl)
+    $ftprequest.Credentials =  $credentials
+    $ftprequest.Method = [System.Net.WebRequestMethods+Ftp]::MakeDirectory
+    $ftprequest.GetResponse() | Out-Null
+}
+
 function SendFolderToFtpUrl($folderTosend, $ftpUrl, $credentials) {
 
     Write-Host "Sending $folderTosend to $ftpUrl"
@@ -68,9 +75,11 @@ function SendFolderToFtpUrl($folderTosend, $ftpUrl, $credentials) {
             Write-Host "Found subfolder: $item"
             $subFolder = Join-Path -Path $folderTosend -ChildPath $item
             $subFtpUrl = $ftpUrl + "/$item"
+
+            CreateFtpFolder $subFtpUrl $credentials
             SendFolderToFtpUrl $subFolder  $subFtpUrl  $credentials
         } else {
-            Write-Host "Uploading $item..." 
+            Write-Host "Uploading $($item.FullName)" 
             $uri = New-Object System.Uri($ftpUrl + "/" + $item.Name) 
             $webclient.UploadFile($uri, $item.FullName)    
         }
