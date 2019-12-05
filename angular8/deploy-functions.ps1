@@ -28,26 +28,26 @@ function DeleteFilesInFtpUrl($ftpUrl, $credentials)
 
         $type = $tokens[2]
         $name = $tokens[3]
-        $fileDeleteUrl = ($ftpUrl + "/" + $name)
+        $fileUrl = ($ftpUrl + "/" + $name)
 
         if ($type -eq "<DIR>")
         {
-            Write-Host "Found folder: $name"
+            Write-Host "Found folder: $fileUrl"
 
-            DeleteFilesInFtpUrl ($ftpUrl + "/" + $name) $credentials $fileDeleteUrl
+            DeleteFilesInFtpUrl $fileUrl $credentials $fileUrl
 
-            Write-Host "Deleting folder: $name"
+            Write-Host "Deleting folder: $fileUrl"
 
-            $ftprequest = [System.Net.FtpWebRequest]::create($fileDeleteUrl)
+            $ftprequest = [System.Net.FtpWebRequest]::create($fileUrl)
             $ftprequest.Credentials =  $credentials
             $ftprequest.Method = [System.Net.WebRequestMethods+Ftp]::RemoveDirectory
             $ftprequest.GetResponse() | Out-Null
         }
         else 
         {
-            Write-Host "Deleting file: $fileDeleteUrl"
+            Write-Host "Deleting file: $fileUrl"
 
-            $ftprequest = [System.Net.FtpWebRequest]::create($fileDeleteUrl)
+            $ftprequest = [System.Net.FtpWebRequest]::create($fileUrl)
             $ftprequest.Credentials =  $credentials
             $ftprequest.Method = [System.Net.WebRequestMethods+Ftp]::DeleteFile
             $ftprequest.GetResponse() | Out-Null
