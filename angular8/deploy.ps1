@@ -6,8 +6,8 @@ This script deploys the angular app to http://pedroliska.com/movies
 
 . ./deploy-functions.ps1
 
-# Write-Host "Deleting the local dist folder and regenerating it."
-# ng build
+Write-Host "Deleting the local dist folder and regenerating it."
+ng build --base-href=/movies/
 
 $secretsLocation = Join-Path -Path $PSScriptRoot -ChildPath "secrets.json"
 Write-Host "loading $secretsLocation"
