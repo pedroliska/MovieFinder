@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "deploy": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command ./deploy.ps1",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
