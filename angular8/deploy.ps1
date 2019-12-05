@@ -13,9 +13,13 @@ This script deploys the angular app to http://pedroliska.com/movies
 # Write-Host "Deleting the local dist folder and regenerating it."
 # ng build
 
-$ftp = "" 
-$user = ""
-$pass = ""
+$secretsLocation = Join-Path -Path $PSScriptRoot -ChildPath "secrets.json"
+Write-Host "loading $secretsLocation"
+$secrets = Get-Content $secretsLocation | Out-String | ConvertFrom-Json
+
+$ftp = $secrets.ftpServer
+$user = $secrets.ftpUsername
+$pass = $secrets.ftpPassword
 
 $webclient = New-Object System.Net.WebClient 
 $credentials = New-Object System.Net.NetworkCredential($user,$pass)
@@ -23,8 +27,7 @@ $webclient.Credentials = $credentials
 
 DeleteFilesInFolder $ftp $credentials
 
-# #list every sql server trace file 
-# $distFolder = Join-Path -Path $PSScriptRoot -ChildPath "dist"
+$distFolder = Join-Path -Path $PSScriptRoot -ChildPath "dist"
 # Write-Host "distFolder=$distFolder"
 # foreach($item in (dir $distFolder "*.*")) { 
 # 	Write-Host "Uploading $item..." 
