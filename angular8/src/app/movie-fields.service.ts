@@ -9,8 +9,8 @@ export class MovieFieldsService {
 
     constructor() {
         let simpleFields = [
-            ['audienceRating', 'Audience Rating', true],
             ['criticsRating', 'Critics Rating', true],
+            ['audienceRating', 'Audience Rating', true],
             ['rank', 'Rental Rank', false],
             ['year', 'Year', true],
             ['mpaaRating', 'MPAA Rating', true]
