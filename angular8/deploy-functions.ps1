@@ -1,6 +1,8 @@
-function DeleteFilesInFolder($url, $credentials)
+function DeleteFilesInFtpUrl($ftpUrl, $credentials)
 {
-    $listRequest = [Net.WebRequest]::Create($url)
+    Write-Host "Deleting files in $ftpUrl"
+
+    $listRequest = [Net.WebRequest]::Create($ftpUrl)
     $listRequest.Method = [System.Net.WebRequestMethods+FTP]::ListDirectoryDetails
     $listRequest.Credentials = $credentials
 
@@ -26,47 +28,52 @@ function DeleteFilesInFolder($url, $credentials)
 
         $type = $tokens[2]
         $name = $tokens[3]
-        $fileUrl = ($url + "/" + $name)
+        $fileDeleteUrl = ($ftpUrl + "/" + $name)
 
         if ($type -eq "<DIR>")
         {
             Write-Host "Found folder: $name"
 
-            DeleteFtpFolder $fileUrl $credentials
+            DeleteFilesInFtpUrl ($ftpUrl + "/" + $name) $credentials $fileDeleteUrl
 
             Write-Host "Deleting folder: $name"
-            $deleteRequest = [Net.WebRequest]::Create($fileUrl)
-            $deleteRequest.Credentials = $credentials
-            $deleteRequest.Method = [System.Net.WebRequestMethods+FTP]::RemoveDirectory
-            $deleteRequest.GetResponse() | Out-Null
+
+            $ftprequest = [System.Net.FtpWebRequest]::create($fileDeleteUrl)
+            $ftprequest.Credentials =  $credentials
+            $ftprequest.Method = [System.Net.WebRequestMethods+Ftp]::RemoveDirectory
+            $ftprequest.GetResponse() | Out-Null
         }
         else 
         {
-            $fileUrl = ($url + "/movies/" + $name)
-            Write-Host "Deleting file: $name"
-            Write-Host "Deleting url: $fileUrl"
+            Write-Host "Deleting file: $fileDeleteUrl"
 
-            # $deleteRequest = [Net.WebRequest]::Create($fileUrl)
-            # $deleteRequest.Credentials = $credentials
-            # $deleteRequest.Method = [System.Net.WebRequestMethods+FTP]::DeleteFile
-            # $deleteRequest.GetResponse() | Out-Null
-
-            $ftprequest = [System.Net.FtpWebRequest]::create($fileUrl)
+            $ftprequest = [System.Net.FtpWebRequest]::create($fileDeleteUrl)
             $ftprequest.Credentials =  $credentials
-            
-            try {
             $ftprequest.Method = [System.Net.WebRequestMethods+Ftp]::DeleteFile
             $ftprequest.GetResponse() | Out-Null
-            }
-            catch
-            {
-                 $ex = $_.Exception;
-            }
-
-
-
-
-
         }
     }
+}
+
+function SendFilesToFtpUrl($ftpUrl, $credentials) {
+
+    $distFolder = Join-Path -Path $PSScriptRoot -ChildPath "dist"
+    Write-Host "Sending files in $distFolder to $ftpUrl"
+
+    $webclient = New-Object System.Net.WebClient 
+    $webclient.Credentials = $credentials
+
+    foreach($item in (Get-ChildItem $distFolder "*.*")) { 
+        Write-Host "Uploading $item..." 
+        $uri = New-Object System.Uri($ftpUrl + "/" + $item.Name) 
+        $webclient.UploadFile($uri, $item.FullName)    
+    } 
+}
+
+function Beep () {
+    function b($a,$b){
+        [console]::beep($a,$b)
+    }
+    b 1000 100;
+    b 1333 200;
 }
