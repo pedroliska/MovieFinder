@@ -16,7 +16,7 @@ export class RottenTomatoesService {
     private getDataAndExecuteFn(withJsonFn: (movies: IMovie[]) => void) {
         //let url = 'https://www.rottentomatoes.com/api/private/v2.0/browse?limit=200&type=top-dvd-streaming&sortBy=popularity'; 
         //let url = 'http://pedroliska.com/movies/top-rentals.aspx';
-        let url = 'http://bridge.pedroliska.com/?url=https%3A%2F%2Fwww.rottentomatoes.com%2Fapi%2Fprivate%2Fv2.0%2Fbrowse%3Flimit%3D200%26type%3Dtop-dvd-streaming%26sortBy%3Dpopularity'; 
+        let url = 'http://bridge.pedroliska.com?url=https%3A%2F%2Fwww.rottentomatoes.com%2Fapi%2Fprivate%2Fv2.0%2Fbrowse%3Flimit%3D200%26type%3Dtop-dvd-streaming%26sortBy%3Dpopularity'; 
         this.myHttp.fetchJson(url, (reply: any) => {
             this.executeFn(withJsonFn, reply);
         });

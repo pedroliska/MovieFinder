@@ -15,18 +15,17 @@ export class TmdbService {
         return new Promise<void>((resolve, reject) => {
 
             // get the genres, they are needed to enhance each movie
-            this.myHttp.fetchJson(this.getFullUrl('/genre/movie/list'), (json: IGenresJson) => {
+            this.myHttp.fetchJson(this.createTmdbUrl('/genre/movie/list'), (json: IGenresJson) => {
                 var genreDict: { [id: number]: string } = {};
                 json.genres.forEach(g => {
                     genreDict[g.id] = g.name;
                 });
 
                 // search each movie and enhance it
-                let url = this.getFullUrl('/search/movie');
                 let lastMovie = movies[movies.length - 1];
                 movies.forEach(localMovie => {
 
-                    var movieUrl = url + encodeURIComponent(localMovie.title);
+                    let movieUrl = this.createTmdbUrl('/search/movie', localMovie.title);
                     this.myHttp.fetchJson(movieUrl, (json: IMoviesJson) => {
 
                         // making genres not be null means we tried to get the genre for
@@ -66,8 +65,13 @@ export class TmdbService {
         });
     }
 
-    private getFullUrl(apiUrl: string): string {
-        return 'https://api.themoviedb.org/3' + apiUrl + '?api_key=7fab4a62931d29948d1d9942f6d84e21&query=';
+    private createTmdbUrl(apiUrl: string, query: string = ''): string {
+        if (query) {
+            query = '&query=' + encodeURIComponent(query);
+        }
+        let tmdbUrl = 'https://api.themoviedb.org/3' + apiUrl + '?api_key=7fab4a62931d29948d1d9942f6d84e21' + query;
+        let proxiedUrl = 'http://bridge.pedroliska.com?url=' + encodeURIComponent(tmdbUrl);
+        return proxiedUrl;
     }
 }
 
