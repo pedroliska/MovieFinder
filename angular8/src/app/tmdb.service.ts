@@ -8,14 +8,14 @@ import { IMovie } from './movie';
 @Injectable()
 export class TmdbService {
 
-    constructor(private myHttp: ThrottledHttpService) { }
+    constructor(private http: MyHttpService) { }
 
     enhanceMovies(movies: IMovie[], movieUpdated: () => void): Promise<void> {
 
         return new Promise<void>((resolve, reject) => {
 
             // get the genres, they are needed to enhance each movie
-            this.myHttp.fetchJson(this.createTmdbUrl('/genre/movie/list'), (json: IGenresJson) => {
+            this.http.fetchJson(this.createTmdbUrl('/genre/movie/list'), (json: IGenresJson) => {
                 var genreDict: { [id: number]: string } = {};
                 json.genres.forEach(g => {
                     genreDict[g.id] = g.name;
@@ -26,7 +26,7 @@ export class TmdbService {
                 movies.forEach(localMovie => {
 
                     let movieUrl = this.createTmdbUrl('/search/movie', localMovie.title);
-                    this.myHttp.fetchJson(movieUrl, (json: IMoviesJson) => {
+                    this.http.fetchJson(movieUrl, (json: IMoviesJson) => {
 
                         // making genres not be null means we tried to get the genre for
                         // this movie. A spinner will stop once we're done fetching all 
