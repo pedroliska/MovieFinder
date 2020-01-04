@@ -104,8 +104,14 @@ body {
     font-weight: normal; 
   }
   
-  #movies .movie .genre {
+  #movies .movie .extraFields {
     clear: both;
-    padding: 4px 6px;
+    padding-top: 4px;
+    padding-left: 6px;
+    padding-right: 6px;
   }
-  
+
+  #movies .movie .extraFields div {
+    padding: 0;
+    padding-bottom: 4px;
+  }
