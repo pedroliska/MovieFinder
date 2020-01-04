@@ -5,38 +5,37 @@ import { Title } from '@angular/platform-browser';
 import { RottenTomatoesService } from './rotten-tomatoes.service';
 import { TmdbService } from './tmdb.service';
 import { MyHttpService } from './my-http.service';
-import { ThrottledHttpService } from './throttled-http.service';
 import { MovieComponent } from './movie/movie.component';
 import _filter from 'lodash-es/filter';
 import _includes from 'lodash-es/includes';
 import _uniq from 'lodash-es/uniq';
-import _map from "lodash-es/map";
-import _flatten from "lodash-es/flatten";
-import _sortBy from "lodash-es/sortBy";
-import _flow from "lodash-es/flow";
+import _map from 'lodash-es/map';
+import _flatten from 'lodash-es/flatten';
+import _sortBy from 'lodash-es/sortBy';
+import _flow from 'lodash-es/flow';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [MovieFieldsService, RottenTomatoesService, TmdbService, MyHttpService, ThrottledHttpService, MovieComponent],
+  providers: [MovieFieldsService, RottenTomatoesService, TmdbService, MyHttpService, MovieComponent],
 })
 export class AppComponent implements OnInit {
   title = 'Top Movie Rentals';
-  sortBy: string = 'audienceRating';
+  sortBy = 'audienceRating';
 
   moviesAll: IMovie[] = [];
   moviesForUi: IMovie[] = [];
   sortFields: IMovieField[];
-  isHidingMoviesWithNoRating: boolean = true;
+  isHidingMoviesWithNoRating = true;
 
   mpaaRatingShownDict: StringDict<boolean> = {};
   allMpaaRatings: string[];
 
-  fetchingGenres: boolean = true;
-  genreAllIsVisible: boolean = true;
-  genreSelectIsVisible: boolean = false;
-  genreClearIsVisible: boolean = false;
+  fetchingGenres = true;
+  genreAllIsVisible = true;
+  genreSelectIsVisible = false;
+  genreClearIsVisible = false;
   allGenres: string[];
   genreToShow: string = null;
 
@@ -108,7 +107,7 @@ export class AppComponent implements OnInit {
           movies,
           m => m[this.sortBy] != null ? m[this.sortBy] : -1);
 
-      let descSort = this.fieldsService.getField(this.sortBy).descSort;
+      const descSort = this.fieldsService.getField(this.sortBy).descSort;
       if (descSort) {
           sortedMovies = sortedMovies.reverse();
       }
@@ -118,12 +117,12 @@ export class AppComponent implements OnInit {
   selectGenreFilter() {
     this.allGenres = _uniq(_flatten(_map(this.moviesAll, x => x.genres))).sort();
 
-      this.genreAllIsVisible = false;
-      this.genreSelectIsVisible = true;
+    this.genreAllIsVisible = false;
+    this.genreSelectIsVisible = true;
   }
 
   selectSciFi() {
-      this.genreToShow = "Science Fiction";
+      this.genreToShow = 'Science Fiction';
       this.filterAndSortMovies();
 
       this.genreAllIsVisible = false;
