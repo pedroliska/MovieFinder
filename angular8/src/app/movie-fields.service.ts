@@ -3,12 +3,12 @@
 @Injectable()
 export class MovieFieldsService {
 
-    fields : IMovieField[];
+    fields: IMovieField[];
 
     private fieldsDict: StringDict<IMovieField> = {};
 
     constructor() {
-        let simpleFields = [
+        const simpleFields = [
             ['criticsRating', 'Critics Rating', true],
             ['audienceRating', 'Audience Rating', true],
             ['rank', 'Rental Rank', false],
@@ -16,8 +16,8 @@ export class MovieFieldsService {
             ['mpaaRating', 'MPAA Rating', true]
         ];
 
-        let mapFn = (item: [string, string, boolean]) =>
-            (<IMovieField>{ fieldName: item[0], prettyName: item[1], descSort: item[2] });
+        const mapFn = (item: [string, string, boolean]) =>
+            ( { fieldName: item[0], prettyName: item[1], descSort: item[2] } as IMovieField);
 
         this.fields = simpleFields.map(mapFn);
         this.fields.forEach(f => {
@@ -25,7 +25,7 @@ export class MovieFieldsService {
         });
     }
 
-    getField(fieldName: string) : IMovieField {
+    getField(fieldName: string): IMovieField {
         return this.fieldsDict[fieldName];
     }
 }
