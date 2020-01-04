@@ -14,7 +14,7 @@ export class TmdbService {
         return new Promise<void>(async (resolve, reject) => {
 
             // get the genres, they are needed to enhance each movie
-            const genresReply = await this.http.getJson(this.createTmdbUrl('/genre/movie/list'));
+            const genresReply = await this.http.get(this.createTmdbUrl('/genre/movie/list'));
 
             const genreDict: { [id: number]: string } = {};
             genresReply.genres.forEach(g => {
@@ -26,7 +26,7 @@ export class TmdbService {
             movies.forEach(async localMovie => {
 
                 const movieUrl = this.createTmdbUrl('/search/movie', localMovie.title);
-                const searchResults = await this.http.getJson(movieUrl);
+                const searchResults = await this.http.get(movieUrl);
 
                 // making genres not be null means we tried to get the genre for
                 // this movie. A spinner will stop once we're done fetching all

@@ -12,7 +12,7 @@ export class RottenTomatoesService {
         // let url = 'http://pedroliska.com/movies/top-rentals.aspx';
         // tslint:disable-next-line: max-line-length
         const url = 'http://bridge.pedroliska.com?url=https%3A%2F%2Fwww.rottentomatoes.com%2Fapi%2Fprivate%2Fv2.0%2Fbrowse%3Flimit%3D200%26type%3Dtop-dvd-streaming%26sortBy%3Dpopularity';
-        const reply = await this.myHttp.getJson(url);
+        const reply = await this.myHttp.get(url);
 
         let rankCount = 0;
         const movies: IMovie[] = reply.results
