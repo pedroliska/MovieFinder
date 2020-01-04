@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IMovie } from './movie';
 import { IMovieField, StringDict, MovieFieldsService } from './movie-fields.service';
 import { Title } from '@angular/platform-browser';
@@ -21,13 +21,13 @@ import _flow from "lodash-es/flow";
   styleUrls: ['./app.component.css'],
   providers: [MovieFieldsService, RottenTomatoesService, TmdbService, MyHttpService, ThrottledHttpService, MovieComponent],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'Top Movie Rentals';
   sortBy: string = 'audienceRating';
 
   moviesAll: IMovie[] = [];
   moviesForUi: IMovie[] = [];
-  sortFields: IMovieField[]; 
+  sortFields: IMovieField[];
   isHidingMoviesWithNoRating: boolean = true;
 
   mpaaRatingShownDict: StringDict<boolean> = {};
@@ -39,7 +39,7 @@ export class AppComponent {
   genreClearIsVisible: boolean = false;
   allGenres: string[];
   genreToShow: string = null;
-  
+
   constructor(
       private titleService: Title,
       private fieldsService: MovieFieldsService,
@@ -49,22 +49,22 @@ export class AppComponent {
 
   async ngOnInit(): Promise<void> {
 
-      this.titleService.setTitle(this.title);
+    this.titleService.setTitle(this.title);
 
-      this.sortFields = this.fieldsService.fields;
+    this.sortFields = this.fieldsService.fields;
 
-      this.rotten.getTopRentals(async movies => {
-          this.moviesAll = movies;
+    const movies = await this.rotten.getTopRentals();
 
-          this.allMpaaRatings = _uniq(_map(movies, 'mpaaRating')).sort();
-          this.allMpaaRatings.forEach(r => {
-              this.mpaaRatingShownDict[r] = true;
-          });
+    this.moviesAll = movies;
 
-          this.filterAndSortMovies();
-          await this.tmdb.enhanceMovies(this.moviesAll, () => { this.filterAndSortMovies(); });
-          this.fetchingGenres = false;
-      });
+    this.allMpaaRatings = _uniq(_map(movies, 'mpaaRating')).sort();
+    this.allMpaaRatings.forEach(r => {
+        this.mpaaRatingShownDict[r] = true;
+    });
+
+    this.filterAndSortMovies();
+    await this.tmdb.enhanceMovies(this.moviesAll, () => { this.filterAndSortMovies(); });
+    this.fetchingGenres = false;
   }
 
   onSortChange(selectedSort: string) {
@@ -98,7 +98,7 @@ export class AppComponent {
       if (this.genreToShow) {
         filteredMovies = _filter(filteredMovies, m => m.genres === null || _includes(m.genres, this.genreToShow));
     }
-      
+
 
       this.sortMovies(filteredMovies);
   }

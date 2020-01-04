@@ -1,6 +1,5 @@
 ﻿import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { catchError, map, tap } from 'rxjs/operators';
 
 @Injectable()
 export class MyHttpService {
@@ -11,5 +10,11 @@ export class MyHttpService {
         this.http
             .get<string>(jsonSourceUrl)
             .subscribe(withJsonFn);
+    }
+
+    getJson(jsonSourceUrl: string): Promise<any> {
+        return this.http
+            .get<string>(jsonSourceUrl)
+            .toPromise();
     }
 }
