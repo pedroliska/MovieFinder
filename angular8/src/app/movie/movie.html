@@ -19,7 +19,7 @@
   </tr>
   <tr (click)="onClick(movieInfo.url)">
     <td colspan="2" class="extraFields">
-      <div class="genre" *ngIf="movieInfo.genres?.length">
+      <div *ngIf="movieInfo.genres?.length">
         Genre: {{ movieInfo.genres.join(', ') }}
       </div>
       <div *ngIf="movieInfo.actors.length">

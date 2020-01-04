@@ -106,12 +106,10 @@ body {
   
   #movies .movie .extraFields {
     clear: both;
-    padding-top: 4px;
-    padding-left: 6px;
-    padding-right: 6px;
+    padding: 2px 6px 3px 6px;
   }
 
   #movies .movie .extraFields div {
     padding: 0;
-    padding-bottom: 4px;
+    padding-bottom: 1px;
   }
