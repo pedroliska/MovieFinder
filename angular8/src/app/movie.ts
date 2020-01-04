@@ -6,6 +6,7 @@
     url: string;
     imageUrl: string;
     genres: string[];
+    actors: string[];
     audienceRating: number;
     criticsRating: number;
 }

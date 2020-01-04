@@ -24,6 +24,7 @@ export class RottenTomatoesService {
                     imageUrl: x.posters.primary,
                     url: 'https://www.rottentomatoes.com' + x.url,
                     genres: null as string[],
+                    actors: x.actors,
                     criticsRating: x.tomatoScore
                 };
             });
