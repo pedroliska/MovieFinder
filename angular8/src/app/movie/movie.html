@@ -22,7 +22,7 @@
       <div class="genre" *ngIf="movieInfo.genres?.length">
         Genre: {{ movieInfo.genres.join(', ') }}
       </div>
-      <div>
+      <div *ngIf="movieInfo.actors.length">
         Actors: {{ movieInfo.actors.join(', ') }}
       </div>
     </td>
