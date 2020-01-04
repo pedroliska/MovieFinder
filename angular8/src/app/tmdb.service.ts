@@ -12,54 +12,54 @@ export class TmdbService {
 
     enhanceMovies(movies: IMovie[], movieUpdated: () => void): Promise<void> {
 
-        return new Promise<void>((resolve, reject) => {
+        return new Promise<void>(async (resolve, reject) => {
 
             // get the genres, they are needed to enhance each movie
-            this.http.fetchJson(this.createTmdbUrl('/genre/movie/list'), (json: IGenresJson) => {
-                const genreDict: { [id: number]: string } = {};
-                json.genres.forEach(g => {
-                    genreDict[g.id] = g.name;
-                });
+            const genresReply = await this.http.getJson(this.createTmdbUrl('/genre/movie/list'));
 
-                // search each movie and enhance it
-                const lastMovie = movies[movies.length - 1];
-                movies.forEach(async localMovie => {
+            const genreDict: { [id: number]: string } = {};
+            genresReply.genres.forEach(g => {
+                genreDict[g.id] = g.name;
+            });
 
-                    const movieUrl = this.createTmdbUrl('/search/movie', localMovie.title);
-                    const searchResults = await this.http.getJson(movieUrl);
+            // search each movie and enhance it
+            const lastMovie = movies[movies.length - 1];
+            movies.forEach(async localMovie => {
 
-                    // making genres not be null means we tried to get the genre for
-                    // this movie. A spinner will stop once we're done fetching all
-                    // genres.
-                    localMovie.genres = [];
+                const movieUrl = this.createTmdbUrl('/search/movie', localMovie.title);
+                const searchResults = await this.http.getJson(movieUrl);
 
-                    const movieResults: IMovieJson[] = searchResults.results;
-                    let tmdbMovie: IMovieJson;
-                    if (movieResults.length === 1) {
-                        tmdbMovie = movieResults[0];
-                    } else {
+                // making genres not be null means we tried to get the genre for
+                // this movie. A spinner will stop once we're done fetching all
+                // genres.
+                localMovie.genres = [];
 
-                        //// refine what TMDB returned.
-                        // get only exact title matches
-                        // sort by relese date desc (not needed since that's the sort that comes from TMDB)
-                        // get the first result
+                const movieResults: IMovieJson[] = searchResults.results;
+                let tmdbMovie: IMovieJson;
+                if (movieResults.length === 1) {
+                    tmdbMovie = movieResults[0];
+                } else {
 
-                        tmdbMovie = _(searchResults.results)
-                            .filter((m: IMovieJson) => m.title.toLowerCase() === localMovie.title.toLowerCase())
-                            .head();
-                    }
-                    if (tmdbMovie) {
-                        localMovie.year = Number(tmdbMovie.release_date.substring(0, 4));
-                        localMovie.genres.push.apply(localMovie.genres, tmdbMovie.genre_ids.map(id => genreDict[id]));
-                        localMovie.audienceRating = tmdbMovie.vote_average * 10;
-                    }
+                    //// refine what TMDB returned.
+                    // get only exact title matches
+                    // sort by relese date desc (not needed since that's the sort that comes from TMDB)
+                    // get the first result
 
-                    movieUpdated();
+                    tmdbMovie = _(searchResults.results)
+                        .filter((m: IMovieJson) => m.title.toLowerCase() === localMovie.title.toLowerCase())
+                        .head();
+                }
+                if (tmdbMovie) {
+                    localMovie.year = Number(tmdbMovie.release_date.substring(0, 4));
+                    localMovie.genres.push.apply(localMovie.genres, tmdbMovie.genre_ids.map(id => genreDict[id]));
+                    localMovie.audienceRating = tmdbMovie.vote_average * 10;
+                }
 
-                    if (localMovie === lastMovie) {
-                        resolve();
-                    }
-                });
+                movieUpdated();
+
+                if (localMovie === lastMovie) {
+                    resolve();
+                }
             });
         });
     }
