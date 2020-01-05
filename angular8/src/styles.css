@@ -62,6 +62,7 @@ body {
       height: 14px;
   }
   
+  #movies { text-align: center; }
   
   #movies .movie {
     width: 360px;
