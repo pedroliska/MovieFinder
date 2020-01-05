@@ -1,10 +1,6 @@
-<table class="movie" border="0">
+<table class="movie">
   <tr>
-    <td>
-      <a href="http://youtube.com/results?search_query={{movieInfo.title}} {{movieInfo.year}} movie trailer" target="_blank">
-        <img src ="{{movieInfo.imageUrl}}"/>
-      </a>
-    </td>
+    <td><a href="http://youtube.com/results?search_query={{movieInfo.title}} {{movieInfo.year}} movie trailer" target="_blank"><img src ="{{movieInfo.imageUrl}}"/></a></td>
     <td class="info" (click)="onClick(movieInfo.url)">
       <p class="movieTitle">
         <a href="#">{{movieInfo.title}}</a>
@@ -15,15 +11,13 @@
           <td>{{movieInfo[field.fieldName]}}</td>
         </tr>
       </table>
-    </td>
-  </tr>
-  <tr (click)="onClick(movieInfo.url)">
-    <td colspan="2" class="extraFields">
-      <div *ngIf="movieInfo.genres?.length">
-        Genre: {{ movieInfo.genres.join(', ') }}
-      </div>
-      <div *ngIf="movieInfo.actors.length">
-        Actors: {{ movieInfo.actors.join(', ') }}
+      <div class="extraFields">
+        <div *ngIf="movieInfo.genres?.length">
+          Genre: {{ movieInfo.genres.join(', ') }}
+        </div>
+        <div *ngIf="movieInfo.actors.length">
+          Actors: {{ movieInfo.actors.join(', ') }}
+        </div>
       </div>
     </td>
   </tr>
